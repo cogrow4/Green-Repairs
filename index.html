@@ -1,0 +1,572 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Green Repairs - Professional Tech Repair Services</title>
+    <link rel="icon" type="image/x-icon" href="/static/favicon.ico">
+    
+    <!-- Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        poppins: ['Poppins', 'sans-serif'],
+                    },
+                    colors: {
+                        primary: {
+                            50: '#f0fdf4',
+                            100: '#dcfce7',
+                            200: '#bbf7d0',
+                            300: '#86efac',
+                            400: '#4ade80',
+                            500: '#22c55e',
+                            600: '#16a34a',
+                            700: '#15803d',
+                            800: '#166534',
+                            900: '#14532d',
+                        }
+                    },
+                    animation: {
+                        'float': 'float 6s ease-in-out infinite',
+                    },
+                    keyframes: {
+                        float: {
+                            '0%, 100%': { transform: 'translateY(0)' },
+                            '50%': { transform: 'translateY(-10px)' },
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    
+    <!-- Custom CSS -->
+    <link href="/css/styles.css" rel="stylesheet">
+    
+    <!-- AOS Animation -->
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    
+    <!-- Feather Icons -->
+    <script src="https://unpkg.com/feather-icons"></script>
+</head>
+<body class="antialiased bg-gray-50 dark:bg-gray-900 transition-colors duration-200">
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-20">
+                <div class="flex items-center">
+                    <div class="flex-shrink-0 flex items-center">
+                        <div class="flex items-center space-x-2">
+                            <i data-feather="smartphone" class="h-8 w-8 text-green-500"></i>
+                            <span class="text-2xl font-bold bg-gradient-to-r from-green-500 to-green-700 bg-clip-text text-transparent">Green Repairs</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="hidden md:flex items-center space-x-8">
+                    <a href="#services" class="text-gray-700 dark:text-gray-300 hover:text-green-600 dark:hover:text-green-400 font-medium transition-colors duration-200">Services</a>
+                    <a href="#about" class="text-gray-700 dark:text-gray-300 hover:text-green-600 dark:hover:text-green-400 font-medium transition-colors duration-200">About</a>
+                    <a href="#contact" class="text-gray-700 dark:text-gray-300 hover:text-green-600 dark:hover:text-green-400 font-medium transition-colors duration-200">Contact</a>
+                    <button id="theme-toggle" class="theme-toggle" aria-label="Toggle dark mode">
+                        <i data-feather="moon" class="dark:hidden w-5 h-5"></i>
+                        <i data-feather="sun" class="hidden dark:block w-5 h-5 text-yellow-300"></i>
+                    </button>
+                </div>
+                <div class="md:hidden flex items-center">
+                    <button id="mobile-menu-button" class="text-gray-700 dark:text-gray-300">
+                        <i data-feather="menu" class="w-6 h-6"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+        <!-- Mobile menu -->
+        <div id="mobile-menu" class="hidden md:hidden bg-white dark:bg-gray-800 shadow-lg rounded-lg mt-2 py-2 absolute left-4 right-4 z-50">
+            <a href="#services" class="block px-4 py-2 text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700">Services</a>
+            <a href="#about" class="block px-4 py-2 text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700">About</a>
+            <a href="#contact" class="block px-4 py-2 text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700">Contact</a>
+            <div class="border-t border-gray-200 dark:border-gray-700 my-2"></div>
+            <button id="mobile-theme-toggle" class="w-full text-left px-4 py-2 text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 flex items-center">
+                <i data-feather="moon" class="dark:hidden w-4 h-4 mr-2"></i>
+                <i data-feather="sun" class="hidden dark:block w-4 h-4 mr-2 text-yellow-300"></i>
+                <span>Toggle Dark Mode</span>
+            </button>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero relative overflow-hidden">
+        <div class="absolute inset-0 bg-black/30"></div>
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-32 relative z-10">
+            <div class="text-center max-w-4xl mx-auto" data-aos="fade-up">
+                <span class="inline-block px-3 py-1 text-sm font-semibold text-green-100 bg-green-700/50 rounded-full mb-6 backdrop-blur-sm">
+                    Gordon, Tasmania • Since 2022
+                </span>
+                <h1 class="text-4xl md:text-6xl font-bold mb-6 leading-tight">
+                    Professional <span class="text-green-300">Tech Repair</span> Services
+                </h1>
+                <p class="text-xl md:text-2xl text-green-100 mb-10 max-w-3xl mx-auto">
+                    Fast, reliable, and affordable device repairs with a 12-month warranty on all services.
+                </p>
+                <div class="flex flex-col sm:flex-row justify-center gap-4">
+                    <a href="#services" class="btn btn-outline bg-white/10 backdrop-blur-sm border-white/20 text-white hover:bg-white/20">
+                        Our Services
+                    </a>
+                    <a href="#contact" class="btn btn-primary bg-green-600 hover:bg-green-700 text-white shadow-lg shadow-green-500/20">
+                        Get a Free Quote
+                        <i data-feather="arrow-right" class="ml-2 w-5 h-5"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+        <div class="absolute bottom-0 left-0 right-0 h-32 bg-gradient-to-t from-gray-50 dark:from-gray-900 to-transparent"></div>
+    </section>
+
+    <!-- Services Section -->
+    <section id="services" class="py-20 bg-white dark:bg-gray-900">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16" data-aos="fade-up">
+                <span class="inline-block text-green-600 dark:text-green-400 font-semibold mb-4">WHAT WE OFFER</span>
+                <h2 class="text-3xl md:text-4xl font-bold mb-6">Our <span class="text-green-600 dark:text-green-400">Services</span></h2>
+                <div class="w-20 h-1 bg-green-500 mx-auto mb-6"></div>
+                <p class="text-lg text-gray-600 dark:text-gray-300 max-w-3xl mx-auto">
+                    Professional repair services with a 12-month warranty on all parts and labor.
+                </p>
+            </div>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <!-- Service 1 -->
+                <div class="service-card group" data-aos="fade-up" data-aos-delay="100">
+                    <div class="w-16 h-16 rounded-2xl bg-green-100 dark:bg-green-900/30 flex items-center justify-center mb-6 group-hover:bg-green-500 dark:group-hover:bg-green-600 transition-colors duration-300">
+                        <i data-feather="smartphone" class="w-8 h-8 text-green-600 dark:text-green-400 group-hover:text-white transition-colors duration-300"></i>
+                    </div>
+                    <h3 class="text-2xl font-bold mb-4">Phone Repair</h3>
+                    <p class="text-gray-600 dark:text-gray-300 mb-6">
+                        Expert repairs for cracked screens, battery replacements, charging port issues, and more for all smartphone models.
+                    </p>
+                    <div class="flex items-center justify-between mt-6 pt-6 border-t border-gray-100 dark:border-gray-800">
+                        <span class="text-green-600 dark:text-green-400 font-semibold text-lg">From $40</span>
+                        <a href="#contact" class="text-green-600 dark:text-green-400 hover:text-green-700 dark:hover:text-green-300 transition-colors duration-200">
+                            <i data-feather="arrow-right" class="w-5 h-5"></i>
+                        </a>
+                    </div>
+                </div>
+                
+                <!-- Service 2 -->
+                <div class="service-card group" data-aos="fade-up" data-aos-delay="200">
+                    <div class="w-16 h-16 rounded-2xl bg-green-100 dark:bg-green-900/30 flex items-center justify-center mb-6 group-hover:bg-green-500 dark:group-hover:bg-green-600 transition-colors duration-300">
+                        <i data-feather="monitor" class="w-8 h-8 text-green-600 dark:text-green-400 group-hover:text-white transition-colors duration-300"></i>
+                    </div>
+                    <h3 class="text-2xl font-bold mb-4">Computer Repair</h3>
+                    <p class="text-gray-600 dark:text-gray-300 mb-6">
+                        Comprehensive diagnostics, hardware repairs, software troubleshooting, and performance optimization for all computers.
+                    </p>
+                    <div class="flex items-center justify-between mt-6 pt-6 border-t border-gray-100 dark:border-gray-800">
+                        <span class="text-green-600 dark:text-green-400 font-semibold text-lg">From $50</span>
+                        <a href="#contact" class="text-green-600 dark:text-green-400 hover:text-green-700 dark:hover:text-green-300 transition-colors duration-200">
+                            <i data-feather="arrow-right" class="w-5 h-5"></i>
+                        </a>
+                    </div>
+                </div>
+                
+                <!-- Service 3 -->
+                <div class="service-card group" data-aos="fade-up" data-aos-delay="300">
+                    <div class="w-16 h-16 rounded-2xl bg-green-100 dark:bg-green-900/30 flex items-center justify-center mb-6 group-hover:bg-green-500 dark:group-hover:bg-green-600 transition-colors duration-300">
+                        <i data-feather="tablet" class="w-8 h-8 text-green-600 dark:text-green-400 group-hover:text-white transition-colors duration-300"></i>
+                    </div>
+                    <h3 class="text-2xl font-bold mb-4">Tablet Repair</h3>
+                    <p class="text-gray-600 dark:text-gray-300 mb-6">
+                        Professional repair services for all tablet models, including screen replacements, battery issues, and charging problems.
+                    </p>
+                    <div class="flex items-center justify-between mt-6 pt-6 border-t border-gray-100 dark:border-gray-800">
+                        <span class="text-green-600 dark:text-green-400 font-semibold text-lg">From $45</span>
+                        <a href="#contact" class="text-green-600 dark:text-green-400 hover:text-green-700 dark:hover:text-green-300 transition-colors duration-200">
+                            <i data-feather="arrow-right" class="w-5 h-5"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="mt-16 text-center" data-aos="fade-up">
+                <p class="text-gray-600 dark:text-gray-300 mb-6">Don't see what you're looking for?</p>
+                <a href="#contact" class="btn btn-outline inline-flex items-center">
+                    Contact us for custom solutions
+                    <i data-feather="arrow-right" class="ml-2 w-4 h-4"></i>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about" class="py-20 bg-gray-50 dark:bg-gray-800">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+                <div class="relative" data-aos="fade-right">
+                    <div class="absolute -top-10 -left-10 w-20 h-20 bg-green-500 rounded-full mix-blend-multiply filter blur-xl opacity-70 animate-blob"></div>
+                    <div class="absolute -bottom-8 -right-10 w-20 h-20 bg-yellow-500 rounded-full mix-blend-multiply filter blur-xl opacity-70 animate-blob animation-delay-2000"></div>
+                    <div class="absolute top-1/2 -right-10 w-20 h-20 bg-purple-500 rounded-full mix-blend-multiply filter blur-xl opacity-70 animate-blob animation-delay-4000"></div>
+                    
+                    <div class="relative">
+                        <span class="inline-block text-green-600 dark:text-green-400 font-semibold mb-4">ABOUT US</span>
+                        <h2 class="text-3xl md:text-4xl font-bold mb-6">Your Trusted <span class="text-green-600 dark:text-green-400">Tech Repair</span> Partner</h2>
+                        <div class="w-20 h-1 bg-green-500 mb-6"></div>
+                        
+                        <div class="space-y-6">
+                            <p class="text-gray-600 dark:text-gray-300">
+                                Founded in 2022 in the heart of Gordon, Tasmania, Green Repairs has been providing top-notch tech repair services to our local community. What started as a small repair shop has grown into a trusted name in device repairs across the region.
+                            </p>
+                            <p class="text-gray-600 dark:text-gray-300">
+                                Our mission is simple: to provide high-quality, affordable repairs while reducing electronic waste. We believe in fixing, not replacing, to save you money and help the environment.
+                            </p>
+                            <div class="grid grid-cols-2 gap-6 mt-8">
+                                <div class="flex items-start space-x-4">
+                                    <div class="flex-shrink-0 w-12 h-12 rounded-xl bg-green-100 dark:bg-green-900/30 flex items-center justify-center">
+                                        <i data-feather="award" class="w-6 h-6 text-green-600 dark:text-green-400"></i>
+                                    </div>
+                                    <div>
+                                        <h4 class="font-semibold text-gray-900 dark:text-white">Expert Technicians</h4>
+                                        <p class="text-sm text-gray-600 dark:text-gray-400">Certified professionals with years of experience</p>
+                                    </div>
+                                </div>
+                                <div class="flex items-start space-x-4">
+                                    <div class="flex-shrink-0 w-12 h-12 rounded-xl bg-green-100 dark:bg-green-900/30 flex items-center justify-center">
+                                        <i data-feather="shield" class="w-6 h-6 text-green-600 dark:text-green-400"></i>
+                                    </div>
+                                    <div>
+                                        <h4 class="font-semibold text-gray-900 dark:text-white">12-Month Warranty</h4>
+                                        <p class="text-sm text-gray-600 dark:text-gray-400">On all repairs and replacement parts</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="relative" data-aos="fade-left">
+                    <div class="relative z-10 rounded-2xl overflow-hidden shadow-2xl">
+                        <img src="https://images.unsplash.com/photo-1551434678-e076c223a692?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1470&q=80" 
+                             alt="Technician repairing a smartphone" 
+                             class="w-full h-auto object-cover">
+                        <div class="absolute inset-0 bg-gradient-to-t from-gray-900/80 to-transparent"></div>
+                        <div class="absolute bottom-0 left-0 p-8 text-white">
+                            <div class="flex items-center space-x-2 mb-2">
+                                <i data-feather="map-pin" class="w-5 h-5 text-green-400"></i>
+                                <span>Gordon, Tasmania</span>
+                            </div>
+                            <h3 class="text-2xl font-bold">Visit Our Repair Center</h3>
+                            <p class="text-gray-300">Professional service in a friendly environment</p>
+                        </div>
+                    </div>
+                    
+                    <div class="grid grid-cols-3 gap-4 mt-6">
+                        <div class="bg-white dark:bg-gray-700 p-4 rounded-xl shadow-md text-center">
+                            <div class="text-3xl font-bold text-green-600 dark:text-green-400">500+</div>
+                            <div class="text-sm text-gray-600 dark:text-gray-300">Devices Repaired</div>
+                        </div>
+                        <div class="bg-white dark:bg-gray-700 p-4 rounded-xl shadow-md text-center">
+                            <div class="text-3xl font-bold text-green-600 dark:text-green-400">98%</div>
+                            <div class="text-sm text-gray-600 dark:text-gray-300">Success Rate</div>
+                        </div>
+                        <div class="bg-white dark:bg-gray-700 p-4 rounded-xl shadow-md text-center">
+                            <div class="text-3xl font-bold text-green-600 dark:text-green-400">24h</div>
+                            <div class="text-sm text-gray-600 dark:text-gray-300">Average Turnaround</div>
+                        </div>
+                    </div>
+    <!-- Contact Section -->
+    <section id="contact" class="py-20 bg-white dark:bg-gray-900">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16" data-aos="fade-up">
+                <span class="inline-block text-green-600 dark:text-green-400 font-semibold mb-4">GET IN TOUCH</span>
+                <h2 class="text-3xl md:text-4xl font-bold mb-6">Request a <span class="text-green-600 dark:text-green-400">Free Quote</span></h2>
+                <div class="w-20 h-1 bg-green-500 mx-auto mb-6"></div>
+                <p class="text-lg text-gray-600 dark:text-gray-300 max-w-2xl mx-auto">
+                    Have questions or need a repair? Fill out the form below and we'll get back to you within 24 hours.
+                </p>
+            </div>
+            
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-start">
+                <div class="bg-gray-50 dark:bg-gray-800 rounded-2xl shadow-xl p-8 md:p-10" data-aos="fade-right">
+                    <h3 class="text-2xl font-bold mb-6">Send us a message</h3>
+                    <form id="contactForm" class="space-y-6">
+                        <div id="formMessage" class="hidden p-4 mb-6 rounded-lg"></div>
+                        
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                            <div>
+                                <label for="name" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Your Name *</label>
+                                <div class="relative">
+                                    <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                                        <i data-feather="user" class="h-5 w-5 text-gray-400"></i>
+                                    </div>
+                                    <input type="text" id="name" name="name" required 
+                                           class="pl-10 w-full px-4 py-3 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-transparent"
+                                           placeholder="John Doe">
+                                </div>
+                            </div>
+                            
+                            <div>
+                                <label for="email" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Email Address *</label>
+                                <div class="relative">
+                                    <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                                        <i data-feather="mail" class="h-5 w-5 text-gray-400"></i>
+                                    </div>
+                                    <input type="email" id="email" name="email" required 
+                                           class="pl-10 w-full px-4 py-3 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-transparent"
+                                           placeholder="your@email.com">
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div>
+                            <label for="device" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Device Type *</label>
+                            <div class="relative">
+                                <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                                    <i data-feather="smartphone" class="h-5 w-5 text-gray-400"></i>
+                                </div>
+                                <select id="device" name="device" required 
+                                        class="pl-10 appearance-none w-full px-4 py-3 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-transparent bg-white dark:bg-gray-700">
+                                    <option value="">Select a device type</option>
+                                    <option value="iPhone">iPhone</option>
+                                    <option value="Android Phone">Android Phone</option>
+                                    <option value="iPad">iPad</option>
+                                    <option value="Android Tablet">Android Tablet</option>
+                                    <option value="MacBook">MacBook</option>
+                                    <option value="Windows Laptop">Windows Laptop</option>
+                                    <option value="iMac/Mac Desktop">iMac/Mac Desktop</option>
+                                    <option value="Windows Desktop">Windows Desktop</option>
+                                    <option value="other">Other Device</option>
+                                </select>
+                                <div class="absolute inset-y-0 right-0 pr-3 flex items-center pointer-events-none">
+                                    <i data-feather="chevron-down" class="h-5 w-5 text-gray-400"></i>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div>
+                            <label for="message" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">How can we help? *</label>
+                            <div class="relative">
+                                <div class="absolute top-3 left-3">
+                                    <i data-feather="message-square" class="h-5 w-5 text-gray-400"></i>
+                                </div>
+                                <textarea id="message" name="message" rows="5" required 
+                                          class="pl-10 w-full px-4 py-3 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-transparent"
+                                          placeholder="Please describe the issue you're experiencing..."></textarea>
+                            </div>
+                        </div>
+                        
+                        <div class="pt-2">
+                            <button type="submit" class="w-full btn btn-primary flex items-center justify-center">
+                                <span>Send Message</span>
+                                <i data-feather="send" class="ml-2 w-5 h-5"></i>
+                            </button>
+                        </div>
+                    </form>
+                </div>
+                
+                <div class="space-y-8" data-aos="fade-left">
+                    <div class="bg-gray-50 dark:bg-gray-800 rounded-2xl p-8 shadow-lg">
+                        <h3 class="text-2xl font-bold mb-6">Contact Information</h3>
+                        
+                        <div class="space-y-6">
+                            <div class="flex items-start space-x-4">
+                                <div class="flex-shrink-0 w-12 h-12 rounded-xl bg-green-100 dark:bg-green-900/30 flex items-center justify-center">
+                                    <i data-feather="map-pin" class="w-5 h-5 text-green-600 dark:text-green-400"></i>
+                                </div>
+                                <div>
+                                    <h4 class="font-semibold text-gray-900 dark:text-white">Our Location</h4>
+                                    <p class="text-gray-600 dark:text-gray-300">123 Tech Street, Gordon, TAS 7150</p>
+                                </div>
+                            </div>
+                            
+                            <div class="flex items-start space-x-4">
+                                <div class="flex-shrink-0 w-12 h-12 rounded-xl bg-green-100 dark:bg-green-900/30 flex items-center justify-center">
+                                    <i data-feather="mail" class="w-5 h-5 text-green-600 dark:text-green-400"></i>
+                                </div>
+                                <div>
+                                    <h4 class="font-semibold text-gray-900 dark:text-white">Email Us</h4>
+                                    <a href="mailto:info@greenrepairs.com" class="text-green-600 dark:text-green-400 hover:underline">info@greenrepairs.com</a>
+                                </div>
+                            </div>
+                            
+                            <div class="flex items-start space-x-4">
+                                <div class="flex-shrink-0 w-12 h-12 rounded-xl bg-green-100 dark:bg-green-900/30 flex items-center justify-center">
+                                    <i data-feather="phone" class="w-5 h-5 text-green-600 dark:text-green-400"></i>
+                                </div>
+                                <div>
+                                    <h4 class="font-semibold text-gray-900 dark:text-white">Call Us</h4>
+                                    <a href="tel:+6112345678" class="text-gray-600 dark:text-gray-300 hover:text-green-600 dark:hover:text-green-400">+61 123 456 789</a>
+                                </div>
+                            </div>
+                            
+                            <div class="flex items-start space-x-4">
+                                <div class="flex-shrink-0 w-12 h-12 rounded-xl bg-green-100 dark:bg-green-900/30 flex items-center justify-center">
+                                    <i data-feather="clock" class="w-5 h-5 text-green-600 dark:text-green-400"></i>
+                                </div>
+                                <div>
+                                    <h4 class="font-semibold text-gray-900 dark:text-white">Opening Hours</h4>
+                                    <p class="text-gray-600 dark:text-gray-300">
+                                        Monday - Friday: 9:00 AM - 6:00 PM<br>
+                                        Saturday: 10:00 AM - 4:00 PM<br>
+                                        Sunday: Closed
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="bg-gradient-to-r from-green-600 to-green-700 rounded-2xl p-8 text-white shadow-lg">
+                        <h3 class="text-2xl font-bold mb-4">Emergency Repairs</h3>
+                        <p class="mb-6 text-green-100">Need urgent assistance? We offer same-day service for emergency repairs.</p>
+                        <a href="tel:+6112345678" class="inline-flex items-center text-white font-medium hover:underline">
+                            <i data-feather="phone" class="w-5 h-5 mr-2"></i>
+                            Call Now: +61 123 456 789
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-gray-900 text-white pt-20 pb-12 relative overflow-hidden">
+        <!-- Decorative elements -->
+        <div class="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-green-500 to-blue-500"></div>
+        <div class="absolute top-0 right-0 -mt-10 -mr-10 w-64 h-64 bg-green-500 rounded-full mix-blend-multiply filter blur-3xl opacity-10"></div>
+        <div class="absolute bottom-0 left-0 -mb-20 -ml-20 w-64 h-64 bg-blue-500 rounded-full mix-blend-multiply filter blur-3xl opacity-10"></div>
+        
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12">
+                <!-- Company Info -->
+                <div class="lg:col-span-2">
+                    <div class="flex items-center mb-6">
+                        <div class="flex items-center justify-center w-12 h-12 rounded-xl bg-gradient-to-r from-green-500 to-green-600">
+                            <i data-feather="smartphone" class="w-6 h-6 text-white"></i>
+                        </div>
+                        <span class="ml-3 text-2xl font-bold bg-gradient-to-r from-green-400 to-green-200 bg-clip-text text-transparent">Green Repairs</span>
+                    </div>
+                    <p class="text-gray-400 mb-6">
+                        Professional tech repair services in Gordon, Tasmania. We're committed to providing high-quality repairs with excellent customer service and fast turnaround times.
+                    </p>
+                    <div class="flex space-x-4">
+                        <a href="#" class="w-10 h-10 rounded-full bg-gray-800 hover:bg-green-600 flex items-center justify-center text-gray-300 hover:text-white transition-colors duration-200" aria-label="Facebook">
+                            <i data-feather="facebook" class="w-5 h-5"></i>
+                        </a>
+                        <a href="#" class="w-10 h-10 rounded-full bg-gray-800 hover:bg-pink-600 flex items-center justify-center text-gray-300 hover:text-white transition-colors duration-200" aria-label="Instagram">
+                            <i data-feather="instagram" class="w-5 h-5"></i>
+                        </a>
+                        <a href="#" class="w-10 h-10 rounded-full bg-gray-800 hover:bg-blue-400 flex items-center justify-center text-gray-300 hover:text-white transition-colors duration-200" aria-label="Twitter">
+                            <i data-feather="twitter" class="w-5 h-5"></i>
+                        </a>
+                        <a href="#" class="w-10 h-10 rounded-full bg-gray-800 hover:bg-red-500 flex items-center justify-center text-gray-300 hover:text-white transition-colors duration-200" aria-label="YouTube">
+                            <i data-feather="youtube" class="w-5 h-5"></i>
+                        </a>
+                    </div>
+                </div>
+                
+                <!-- Quick Links -->
+                <div>
+                    <h3 class="text-lg font-bold text-white mb-6 relative inline-block">
+                        Quick Links
+                        <span class="absolute -bottom-2 left-0 w-10 h-0.5 bg-green-500"></span>
+                    </h3>
+                    <ul class="space-y-3">
+                        <li><a href="#services" class="text-gray-400 hover:text-green-400 transition-colors duration-200 flex items-center">
+                            <i data-feather="chevron-right" class="w-4 h-4 mr-2 text-green-500"></i>
+                            Our Services
+                        </a></li>
+                        <li><a href="#about" class="text-gray-400 hover:text-green-400 transition-colors duration-200 flex items-center">
+                            <i data-feather="chevron-right" class="w-4 h-4 mr-2 text-green-500"></i>
+                            About Us
+                        </a></li>
+                        <li><a href="#contact" class="text-gray-400 hover:text-green-400 transition-colors duration-200 flex items-center">
+                            <i data-feather="chevron-right" class="w-4 h-4 mr-2 text-green-500"></i>
+                            Contact
+                        </a></li>
+                        <li><a href="refund-policy.html" class="text-gray-400 hover:text-green-400 transition-colors duration-200 flex items-center">
+                            <i data-feather="chevron-right" class="w-4 h-4 mr-2 text-green-500"></i>
+                            Refund Policy
+                        </a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-green-400 transition-colors duration-200 flex items-center">
+                            <i data-feather="chevron-right" class="w-4 h-4 mr-2 text-green-500"></i>
+                            Privacy Policy
+                        </a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-green-400 transition-colors duration-200 flex items-center">
+                            <i data-feather="chevron-right" class="w-4 h-4 mr-2 text-green-500"></i>
+                            Terms of Service
+                        </a></li>
+                    </ul>
+                </div>
+                
+                <!-- Contact Info -->
+                <div>
+                    <h3 class="text-lg font-bold text-white mb-6 relative inline-block">
+                        Contact Us
+                        <span class="absolute -bottom-2 left-0 w-10 h-0.5 bg-green-500"></span>
+                    </h3>
+                    <ul class="space-y-4">
+                        <li class="flex items-start">
+                            <div class="flex-shrink-0 w-10 h-10 rounded-lg bg-gray-800 flex items-center justify-center text-green-500">
+                                <i data-feather="map-pin" class="w-5 h-5"></i>
+                            </div>
+                            <div class="ml-4">
+                                <h4 class="font-medium text-white">Our Location</h4>
+                                <p class="text-gray-400 text-sm">123 Tech Street, Gordon, TAS 7150</p>
+                            </div>
+                        </li>
+                        
+                        <li class="flex items-start">
+                            <div class="flex-shrink-0 w-10 h-10 rounded-lg bg-gray-800 flex items-center justify-center text-green-500">
+                                <i data-feather="mail" class="w-5 h-5"></i>
+                            </div>
+                            <div class="ml-4">
+                                <h4 class="font-medium text-white">Email Us</h4>
+                                <a href="mailto:info@greenrepairs.com" class="text-gray-400 hover:text-green-400 text-sm transition-colors duration-200">info@greenrepairs.com</a>
+                            </div>
+                        </li>
+                        
+                        <li class="flex items-start">
+                            <div class="flex-shrink-0 w-10 h-10 rounded-lg bg-gray-800 flex items-center justify-center text-green-500">
+                                <i data-feather="phone" class="w-5 h-5"></i>
+                            </div>
+                            <div class="ml-4">
+                                <h4 class="font-medium text-white">Call Us</h4>
+                                <a href="tel:+6112345678" class="text-gray-400 hover:text-green-400 text-sm transition-colors duration-200">+61 123 456 789</a>
+                            </div>
+                        </li>
+                        
+                        <li class="flex items-start">
+                            <div class="flex-shrink-0 w-10 h-10 rounded-lg bg-gray-800 flex items-center justify-center text-green-500">
+                                <i data-feather="clock" class="w-5 h-5"></i>
+                            </div>
+                            <div class="ml-4">
+                                <h4 class="font-medium text-white">Opening Hours</h4>
+                                <div class="text-gray-400 text-sm space-y-1">
+                                    <p>Mon-Fri: 9:00 AM - 6:00 PM</p>
+                                    <p>Sat: 10:00 AM - 4:00 PM</p>
+                                    <p>Sun: Closed</p>
+                                </div>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            
+            <!-- Copyright -->
+            <div class="border-t border-gray-800 mt-12 pt-8 flex flex-col md:flex-row justify-between items-center">
+                <p class="text-gray-500 text-sm">&copy; 2023 Green Repairs. All rights reserved.</p>
+                <div class="flex flex-wrap justify-center md:justify-end gap-x-6 gap-y-2 mt-4 md:mt-0">
+                    <a href="#" class="text-gray-500 hover:text-green-400 text-sm transition-colors duration-200">Privacy Policy</a>
+                    <a href="#" class="text-gray-500 hover:text-green-400 text-sm transition-colors duration-200">Terms of Service</a>
+                    <a href="#" class="text-gray-500 hover:text-green-400 text-sm transition-colors duration-200">Sitemap</a>
+                    <a href="#" class="text-gray-500 hover:text-green-400 text-sm transition-colors duration-200">Accessibility</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+</html>

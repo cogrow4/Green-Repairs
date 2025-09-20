@@ -1,0 +1,138 @@
+/* Base Styles */
+:root {
+  /* Light Theme */
+  --bg-primary: #ffffff;
+  --bg-secondary: #f3f4f6;
+  --text-primary: #1f2937;
+  --text-secondary: #4b5563;
+  --accent: #10b981;
+  --accent-hover: #059669;
+  --card-bg: #ffffff;
+  --card-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+  --nav-bg: rgba(255, 255, 255, 0.95);
+  --footer-bg: #111827;
+  --footer-text: #f3f4f6;
+  --input-bg: #ffffff;
+  --input-border: #d1d5db;
+  --input-focus: #93c5fd;
+}
+
+/* Dark Theme */
+[data-theme="dark"] {
+  --bg-primary: #111827;
+  --bg-secondary: #1f2937;
+  --text-primary: #f9fafb;
+  --text-secondary: #d1d5db;
+  --card-bg: #1f2937;
+  --card-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.3), 0 2px 4px -1px rgba(0, 0, 0, 0.2);
+  --nav-bg: rgba(17, 24, 39, 0.95);
+  --input-bg: #1f2937;
+  --input-border: #4b5563;
+  --input-focus: #60a5fa;
+}
+
+/* Global Styles */
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  @apply bg-gray-50 text-gray-900 dark:bg-gray-900 dark:text-gray-100 transition-colors duration-200;
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+  line-height: 1.6;
+}
+
+/* Typography */
+h1, h2, h3, h4, h5, h6 {
+  @apply font-bold leading-tight tracking-tight;
+  color: var(--text-primary);
+}
+
+h1 { @apply text-4xl md:text-5xl lg:text-6xl; }
+h2 { @apply text-3xl md:text-4xl; }
+h3 { @apply text-2xl md:text-3xl; }
+
+p {
+  @apply text-gray-600 dark:text-gray-300;
+}
+
+/* Navigation */
+.navbar {
+  @apply fixed w-full z-50 transition-all duration-300;
+  background-color: var(--nav-bg);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+}
+
+/* Buttons */
+.btn {
+  @apply inline-flex items-center justify-center px-6 py-3 rounded-full font-semibold transition-all duration-200 transform hover:scale-105 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500;
+}
+
+.btn-primary {
+  @apply bg-green-600 text-white hover:bg-green-700;
+}
+
+.btn-outline {
+  @apply border-2 border-green-600 text-green-600 hover:bg-green-50 dark:border-green-500 dark:text-green-500 dark:hover:bg-gray-800;
+}
+
+/* Cards */
+.service-card {
+  @apply rounded-xl p-8 transition-all duration-300 hover:shadow-xl transform hover:-translate-y-1;
+  background-color: var(--card-bg);
+  box-shadow: var(--card-shadow);
+}
+
+/* Form Elements */
+input, textarea, select {
+  @apply w-full px-4 py-3 rounded-lg border focus:ring-2 focus:ring-green-500 focus:border-transparent transition-colors duration-200;
+  background-color: var(--input-bg);
+  border-color: var(--input-border);
+  color: var(--text-primary);
+}
+
+/* Dark Mode Toggle */
+.theme-toggle {
+  @apply p-2 rounded-full focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-offset-2;
+  color: var(--text-primary);
+}
+
+/* Hero Section */
+.hero {
+  @apply min-h-screen flex items-center justify-center text-center bg-gradient-to-br from-green-700 to-green-900 text-white;
+  background-size: 200% 200%;
+  animation: gradient 15s ease infinite;
+}
+
+@keyframes gradient {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+/* Footer */
+footer {
+  @apply py-12 bg-gray-900 text-gray-300;
+}
+
+/* Animations */
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.animate-fade-in {
+  animation: fadeIn 0.6s ease-out forwards;
+}
+
+/* Responsive Adjustments */
+@media (max-width: 768px) {
+  .hero-content {
+    @apply px-4;
+  }
+  
+  .service-card {
+    @apply p-6;
+  }
+}

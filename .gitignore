@@ -1,0 +1,59 @@
+# Environment variables
+.env
+.env.*
+!.env.example
+
+# Dependencies
+/vendor/
+node_modules/
+
+# Build output
+.netlify
+.netlify/
+
+# IDE specific files
+.idea/
+.vscode/
+*.sublime-workspace
+*.sublime-project
+
+# OS generated files
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+
+# Logs
+logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Local Netlify folder
+.netlify/
+
+# Logs
+*.log
+
+# Local development
+.env.local
+.env.*.local
+
+# Build directories
+/build/
+/dist/
+
+# Cache
+.cache/
+
+# Debug logs
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Local Netlify folder
+.netlify
