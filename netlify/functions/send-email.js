@@ -17,12 +17,28 @@ exports.handler = async (event) => {
   }
 
   try {
-    // Parse the form data
-    const params = new URLSearchParams(event.body);
-    const name = params.get('name');
-    const email = params.get('email');
-    const device = params.get('device');
-    const message = params.get('message');
+    // Validate env variables first
+    if (!MAILGUN_API_KEY || !MAILGUN_DOMAIN || !MAILGUN_TO_EMAIL) {
+      console.error('Missing required Mailgun environment variables');
+      return {
+        statusCode: 500,
+        body: JSON.stringify({ success: false, error: 'Email service is not configured.' })
+      };
+    }
+
+    // Parse the form data (supports JSON and URL-encoded bodies)
+    const contentType = (event.headers && (event.headers['content-type'] || event.headers['Content-Type'])) || '';
+    let name, email, device, message;
+    if (contentType.includes('application/json')) {
+      const data = JSON.parse(event.body || '{}');
+      ({ name, email, device, message } = data);
+    } else {
+      const params = new URLSearchParams(event.body || '');
+      name = params.get('name');
+      email = params.get('email');
+      device = params.get('device');
+      message = params.get('message');
+    }
 
     // Validate required fields
     if (!name || !email || !device || !message) {
