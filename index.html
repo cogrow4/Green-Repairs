@@ -1,64 +1,94 @@
 <!DOCTYPE html>
-<html lang="en" class="scroll-smooth">
+<html lang="en" class="scroll-smooth dark">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Green Repairs - Professional Tech Repair Services</title>
-    <link rel="icon" type="image/x-icon" href="/static/favicon.ico">
+    <link rel="icon" type="image/svg+xml" href="/static/favicon.svg">
+    <link rel="alternate icon" type="image/x-icon" href="/static/favicon.ico">
     
     <!-- Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     
-    <!-- Tailwind CSS -->
+    <!-- Tailwind CSS Play CDN -->
     <script src="https://cdn.tailwindcss.com"></script>
     <script>
-        tailwind.config = {
-            darkMode: 'class',
-            theme: {
-                extend: {
-                    fontFamily: {
-                        sans: ['Inter', 'sans-serif'],
-                        poppins: ['Poppins', 'sans-serif'],
-                    },
-                    colors: {
-                        primary: {
-                            50: '#f0fdf4',
-                            100: '#dcfce7',
-                            200: '#bbf7d0',
-                            300: '#86efac',
-                            400: '#4ade80',
-                            500: '#22c55e',
-                            600: '#16a34a',
-                            700: '#15803d',
-                            800: '#166534',
-                            900: '#14532d',
-                        }
-                    },
-                    animation: {
-                        'float': 'float 6s ease-in-out infinite',
-                    },
-                    keyframes: {
-                        float: {
-                            '0%, 100%': { transform: 'translateY(0)' },
-                            '50%': { transform: 'translateY(-10px)' },
-                        }
-                    }
-                }
+      tailwind.config = {
+        darkMode: 'class',
+        theme: {
+          extend: {
+            fontFamily: {
+              sans: ['Inter', 'sans-serif'],
+              poppins: ['Poppins', 'sans-serif'],
+            },
+            colors: {
+              primary: {
+                50: '#f0fdf4',
+                100: '#dcfce7',
+                200: '#bbf7d0',
+                300: '#86efac',
+                400: '#4ade80',
+                500: '#22c55e',
+                600: '#16a34a',
+                700: '#15803d',
+                800: '#166534',
+                900: '#14532d',
+              }
             }
+          }
         }
+      }
     </script>
+    <style type="text/tailwindcss">
+      @layer components {
+        .navbar { @apply fixed w-full z-50 transition-all duration-300 bg-white/95 dark:bg-gray-900/95 backdrop-blur py-4; }
+        .nav-logo { @apply flex items-center space-x-2; }
+        .nav-links { @apply hidden md:flex items-center space-x-8; }
+        .nav-links a { @apply text-gray-700 dark:text-gray-300 hover:text-green-600 dark:hover:text-green-400 font-medium transition-colors duration-200; }
+        .mobile-menu-button { @apply md:hidden text-gray-700 dark:text-gray-300; }
+        .mobile-menu { @apply md:hidden bg-white dark:bg-gray-800 shadow-lg rounded-lg mt-2 py-2 absolute left-4 right-4 z-50 hidden; }
+        .mobile-menu.active { @apply block; }
+
+        .btn { @apply inline-flex items-center justify-center px-6 py-3 rounded-full font-semibold transition-all duration-200 transform hover:scale-105 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500; }
+        .btn-primary { @apply bg-green-600 text-white hover:bg-green-700; }
+        .btn-outline { @apply border-2 border-green-600 text-green-600 hover:bg-green-50 dark:border-green-500 dark:text-green-500 dark:hover:bg-gray-800; }
+
+        .service-card { @apply rounded-xl p-8 transition-all duration-300 hover:shadow-xl transform hover:-translate-y-1 bg-white dark:bg-gray-800; }
+
+        .theme-toggle { @apply p-2 rounded-full focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-offset-2 text-gray-900 dark:text-gray-100; }
+
+        .hero { @apply flex items-center justify-center text-center bg-gradient-to-br from-green-700 to-green-900 text-white; }
+        .hero-content { @apply relative z-10 max-w-4xl mx-auto px-4; }
+        .hero h1 { @apply text-4xl md:text-5xl lg:text-6xl font-bold mb-6 leading-tight text-white; }
+        .hero p { @apply text-xl md:text-2xl text-green-100 mb-10; }
+        .hero-buttons { @apply flex flex-col sm:flex-row justify-center gap-4 mt-8; }
+
+        footer { @apply bg-gray-900 text-gray-300 w-full overflow-hidden py-20 mt-16; }
+        footer .container { @apply max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10; }
+        .footer-content { @apply grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 mb-12; }
+        .footer-logo { @apply flex items-center mb-6; }
+        .footer-links h3 { @apply text-lg font-bold text-white mb-4 relative pb-2; }
+        .footer-links ul { @apply space-y-2; }
+        .footer-links a { @apply text-gray-400 hover:text-white transition-colors duration-200; }
+        .footer-bottom { @apply border-t border-gray-800 pt-8 mt-8 flex flex-col md:flex-row justify-between items-center text-center; }
+        .social-links { @apply flex space-x-4 mt-4 md:mt-0; }
+        .social-links a { @apply w-10 h-10 rounded-full bg-gray-800 hover:bg-gray-700 flex items-center justify-center text-gray-300 hover:text-white transition-colors duration-200; }
+      }
+      @keyframes float { 0%, 100% { transform: translateY(0) } 50% { transform: translateY(-10px) } }
+      .animate-float { animation: float 6s ease-in-out infinite; }
+    </style>
     
-    <!-- Custom CSS -->
-    <link href="/css/styles.css" rel="stylesheet">
+    <!-- Custom CSS removed to prevent overriding Tailwind component styles -->
     
     <!-- AOS Animation -->
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
     
     <!-- Feather Icons -->
-    <script src="https://unpkg.com/feather-icons"></script>
+    <script src="https://unpkg.com/feather-icons@4.28.0/dist/feather.min.js"></script>
 </head>
-<body class="antialiased bg-gray-50 dark:bg-gray-900 transition-colors duration-200">
+<body class="antialiased bg-gray-50 text-gray-900 dark:bg-gray-900 dark:text-gray-100 transition-colors duration-200">
     <!-- Navigation -->
     <nav class="navbar">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -113,7 +143,7 @@
                     Professional <span class="text-green-300">Tech Repair</span> Services
                 </h1>
                 <p class="text-xl md:text-2xl text-green-100 mb-10 max-w-3xl mx-auto">
-                    Fast, reliable, and affordable device repairs with a 12-month warranty on all services.
+                    Fast, reliable, and affordable device repairs with a 60-day warranty on all services.
                 </p>
                 <div class="flex flex-col sm:flex-row justify-center gap-4">
                     <a href="#services" class="btn btn-outline bg-white/10 backdrop-blur-sm border-white/20 text-white hover:bg-white/20">
@@ -220,28 +250,28 @@
                         
                         <div class="space-y-6">
                             <p class="text-gray-600 dark:text-gray-300">
-                                Founded in 2022 in the heart of Gordon, Tasmania, Green Repairs has been providing top-notch tech repair services to our local community. What started as a small repair shop has grown into a trusted name in device repairs across the region.
+                                Founded in 2022 in the heart of Gordon, Tasmania, Green Repairs has been providing top-notch tech repair services to our local community.
                             </p>
                             <p class="text-gray-600 dark:text-gray-300">
                                 Our mission is simple: to provide high-quality, affordable repairs while reducing electronic waste. We believe in fixing, not replacing, to save you money and help the environment.
                             </p>
-                            <div class="grid grid-cols-2 gap-6 mt-8">
-                                <div class="flex items-start space-x-4">
-                                    <div class="flex-shrink-0 w-12 h-12 rounded-xl bg-green-100 dark:bg-green-900/30 flex items-center justify-center">
-                                        <i data-feather="award" class="w-6 h-6 text-green-600 dark:text-green-400"></i>
-                                    </div>
-                                    <div>
-                                        <h4 class="font-semibold text-gray-900 dark:text-white">Expert Technicians</h4>
-                                        <p class="text-sm text-gray-600 dark:text-gray-400">Certified professionals with years of experience</p>
-                                    </div>
-                                </div>
+                            <div class="grid grid-cols-1 sm:grid-cols-2 gap-6 mt-8">
                                 <div class="flex items-start space-x-4">
                                     <div class="flex-shrink-0 w-12 h-12 rounded-xl bg-green-100 dark:bg-green-900/30 flex items-center justify-center">
                                         <i data-feather="shield" class="w-6 h-6 text-green-600 dark:text-green-400"></i>
                                     </div>
                                     <div>
-                                        <h4 class="font-semibold text-gray-900 dark:text-white">12-Month Warranty</h4>
+                                        <h4 class="font-semibold text-gray-900 dark:text-white">60-Day Warranty</h4>
                                         <p class="text-sm text-gray-600 dark:text-gray-400">On all repairs and replacement parts</p>
+                                    </div>
+                                </div>
+                                <div class="flex items-start space-x-4">
+                                    <div class="flex-shrink-0 w-12 h-12 rounded-xl bg-green-100 dark:bg-green-900/30 flex items-center justify-center">
+                                        <i data-feather="package" class="w-6 h-6 text-green-600 dark:text-green-400"></i>
+                                    </div>
+                                    <div>
+                                        <h4 class="font-semibold text-gray-900 dark:text-white">Post-in Repairs</h4>
+                                        <p class="text-sm text-gray-600 dark:text-gray-400">Mail your device to us for convenient service</p>
                                     </div>
                                 </div>
                             </div>
@@ -260,18 +290,18 @@
                                 <i data-feather="map-pin" class="w-5 h-5 text-green-400"></i>
                                 <span>Gordon, Tasmania</span>
                             </div>
-                            <h3 class="text-2xl font-bold">Visit Our Repair Center</h3>
-                            <p class="text-gray-300">Professional service in a friendly environment</p>
+                            <h3 class="text-2xl font-bold">Trusted Local Repairs</h3>
+                            <p class="text-gray-300">Professional service and great customer care</p>
                         </div>
                     </div>
                     
                     <div class="grid grid-cols-3 gap-4 mt-6">
                         <div class="bg-white dark:bg-gray-700 p-4 rounded-xl shadow-md text-center">
-                            <div class="text-3xl font-bold text-green-600 dark:text-green-400">500+</div>
+                            <div class="text-3xl font-bold text-green-600 dark:text-green-400">100+</div>
                             <div class="text-sm text-gray-600 dark:text-gray-300">Devices Repaired</div>
                         </div>
                         <div class="bg-white dark:bg-gray-700 p-4 rounded-xl shadow-md text-center">
-                            <div class="text-3xl font-bold text-green-600 dark:text-green-400">98%</div>
+                            <div class="text-3xl font-bold text-green-600 dark:text-green-400">High</div>
                             <div class="text-sm text-gray-600 dark:text-gray-300">Success Rate</div>
                         </div>
                         <div class="bg-white dark:bg-gray-700 p-4 rounded-xl shadow-md text-center">
@@ -279,6 +309,11 @@
                             <div class="text-sm text-gray-600 dark:text-gray-300">Average Turnaround</div>
                         </div>
                     </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
     <!-- Contact Section -->
     <section id="contact" class="py-20 bg-white dark:bg-gray-900">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -305,7 +340,7 @@
                                         <i data-feather="user" class="h-5 w-5 text-gray-400"></i>
                                     </div>
                                     <input type="text" id="name" name="name" required 
-                                           class="pl-10 w-full px-4 py-3 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-transparent"
+                                           class="pl-10 w-full px-4 py-3 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-transparent bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100 placeholder-gray-400"
                                            placeholder="John Doe">
                                 </div>
                             </div>
@@ -317,7 +352,7 @@
                                         <i data-feather="mail" class="h-5 w-5 text-gray-400"></i>
                                     </div>
                                     <input type="email" id="email" name="email" required 
-                                           class="pl-10 w-full px-4 py-3 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-transparent"
+                                           class="pl-10 w-full px-4 py-3 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-transparent bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100 placeholder-gray-400"
                                            placeholder="your@email.com">
                                 </div>
                             </div>
@@ -330,7 +365,7 @@
                                     <i data-feather="smartphone" class="h-5 w-5 text-gray-400"></i>
                                 </div>
                                 <select id="device" name="device" required 
-                                        class="pl-10 appearance-none w-full px-4 py-3 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-transparent bg-white dark:bg-gray-700">
+                                        class="pl-10 appearance-none w-full px-4 py-3 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-transparent bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100">
                                     <option value="">Select a device type</option>
                                     <option value="iPhone">iPhone</option>
                                     <option value="Android Phone">Android Phone</option>
@@ -355,7 +390,7 @@
                                     <i data-feather="message-square" class="h-5 w-5 text-gray-400"></i>
                                 </div>
                                 <textarea id="message" name="message" rows="5" required 
-                                          class="pl-10 w-full px-4 py-3 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-transparent"
+                                          class="pl-10 w-full px-4 py-3 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-transparent bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100 placeholder-gray-400"
                                           placeholder="Please describe the issue you're experiencing..."></textarea>
                             </div>
                         </div>
@@ -380,7 +415,7 @@
                                 </div>
                                 <div>
                                     <h4 class="font-semibold text-gray-900 dark:text-white">Our Location</h4>
-                                    <p class="text-gray-600 dark:text-gray-300">123 Tech Street, Gordon, TAS 7150</p>
+                                    <p class="text-gray-600 dark:text-gray-300">115 Dulcia Rd, Gordon, TAS 7150</p>
                                 </div>
                             </div>
                             
@@ -390,7 +425,7 @@
                                 </div>
                                 <div>
                                     <h4 class="font-semibold text-gray-900 dark:text-white">Email Us</h4>
-                                    <a href="mailto:info@greenrepairs.com" class="text-green-600 dark:text-green-400 hover:underline">info@greenrepairs.com</a>
+                                    <a href="mailto:coen@green-repairs.com" class="text-green-600 dark:text-green-400 hover:underline">coen@green-repairs.com</a>
                                 </div>
                             </div>
                             
@@ -400,21 +435,7 @@
                                 </div>
                                 <div>
                                     <h4 class="font-semibold text-gray-900 dark:text-white">Call Us</h4>
-                                    <a href="tel:+6112345678" class="text-gray-600 dark:text-gray-300 hover:text-green-600 dark:hover:text-green-400">+61 123 456 789</a>
-                                </div>
-                            </div>
-                            
-                            <div class="flex items-start space-x-4">
-                                <div class="flex-shrink-0 w-12 h-12 rounded-xl bg-green-100 dark:bg-green-900/30 flex items-center justify-center">
-                                    <i data-feather="clock" class="w-5 h-5 text-green-600 dark:text-green-400"></i>
-                                </div>
-                                <div>
-                                    <h4 class="font-semibold text-gray-900 dark:text-white">Opening Hours</h4>
-                                    <p class="text-gray-600 dark:text-gray-300">
-                                        Monday - Friday: 9:00 AM - 6:00 PM<br>
-                                        Saturday: 10:00 AM - 4:00 PM<br>
-                                        Sunday: Closed
-                                    </p>
+                                    <a href="tel:+61482389142" class="text-gray-600 dark:text-gray-300 hover:text-green-600 dark:hover:text-green-400">+61 482 389 142</a>
                                 </div>
                             </div>
                         </div>
@@ -423,9 +444,9 @@
                     <div class="bg-gradient-to-r from-green-600 to-green-700 rounded-2xl p-8 text-white shadow-lg">
                         <h3 class="text-2xl font-bold mb-4">Emergency Repairs</h3>
                         <p class="mb-6 text-green-100">Need urgent assistance? We offer same-day service for emergency repairs.</p>
-                        <a href="tel:+6112345678" class="inline-flex items-center text-white font-medium hover:underline">
+                        <a href="tel:+61482389142" class="inline-flex items-center text-white font-medium hover:underline">
                             <i data-feather="phone" class="w-5 h-5 mr-2"></i>
-                            Call Now: +61 123 456 789
+                            Call Now: +61 482 389 142
                         </a>
                     </div>
                 </div>
@@ -453,20 +474,7 @@
                     <p class="text-gray-400 mb-6">
                         Professional tech repair services in Gordon, Tasmania. We're committed to providing high-quality repairs with excellent customer service and fast turnaround times.
                     </p>
-                    <div class="flex space-x-4">
-                        <a href="#" class="w-10 h-10 rounded-full bg-gray-800 hover:bg-green-600 flex items-center justify-center text-gray-300 hover:text-white transition-colors duration-200" aria-label="Facebook">
-                            <i data-feather="facebook" class="w-5 h-5"></i>
-                        </a>
-                        <a href="#" class="w-10 h-10 rounded-full bg-gray-800 hover:bg-pink-600 flex items-center justify-center text-gray-300 hover:text-white transition-colors duration-200" aria-label="Instagram">
-                            <i data-feather="instagram" class="w-5 h-5"></i>
-                        </a>
-                        <a href="#" class="w-10 h-10 rounded-full bg-gray-800 hover:bg-blue-400 flex items-center justify-center text-gray-300 hover:text-white transition-colors duration-200" aria-label="Twitter">
-                            <i data-feather="twitter" class="w-5 h-5"></i>
-                        </a>
-                        <a href="#" class="w-10 h-10 rounded-full bg-gray-800 hover:bg-red-500 flex items-center justify-center text-gray-300 hover:text-white transition-colors duration-200" aria-label="YouTube">
-                            <i data-feather="youtube" class="w-5 h-5"></i>
-                        </a>
-                    </div>
+                    <!-- Social links removed as requested -->
                 </div>
                 
                 <!-- Quick Links -->
@@ -476,30 +484,24 @@
                         <span class="absolute -bottom-2 left-0 w-10 h-0.5 bg-green-500"></span>
                     </h3>
                     <ul class="space-y-3">
-                        <li><a href="#services" class="text-gray-400 hover:text-green-400 transition-colors duration-200 flex items-center">
-                            <i data-feather="chevron-right" class="w-4 h-4 mr-2 text-green-500"></i>
-                            Our Services
-                        </a></li>
-                        <li><a href="#about" class="text-gray-400 hover:text-green-400 transition-colors duration-200 flex items-center">
-                            <i data-feather="chevron-right" class="w-4 h-4 mr-2 text-green-500"></i>
-                            About Us
-                        </a></li>
-                        <li><a href="#contact" class="text-gray-400 hover:text-green-400 transition-colors duration-200 flex items-center">
-                            <i data-feather="chevron-right" class="w-4 h-4 mr-2 text-green-500"></i>
-                            Contact
-                        </a></li>
-                        <li><a href="refund-policy.html" class="text-gray-400 hover:text-green-400 transition-colors duration-200 flex items-center">
-                            <i data-feather="chevron-right" class="w-4 h-4 mr-2 text-green-500"></i>
-                            Refund Policy
-                        </a></li>
-                        <li><a href="#" class="text-gray-400 hover:text-green-400 transition-colors duration-200 flex items-center">
-                            <i data-feather="chevron-right" class="w-4 h-4 mr-2 text-green-500"></i>
-                            Privacy Policy
-                        </a></li>
-                        <li><a href="#" class="text-gray-400 hover:text-green-400 transition-colors duration-200 flex items-center">
-                            <i data-feather="chevron-right" class="w-4 h-4 mr-2 text-green-500"></i>
-                            Terms of Service
-                        </a></li>
+                        <li>
+                            <a href="#services" class="text-gray-400 hover:text-green-400 transition-colors duration-200 flex items-center">
+                                <i data-feather="chevron-right" class="w-4 h-4 mr-2 text-green-500"></i>
+                                Our Services
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#about" class="text-gray-400 hover:text-green-400 transition-colors duration-200 flex items-center">
+                                <i data-feather="chevron-right" class="w-4 h-4 mr-2 text-green-500"></i>
+                                About Us
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#contact" class="text-gray-400 hover:text-green-400 transition-colors duration-200 flex items-center">
+                                <i data-feather="chevron-right" class="w-4 h-4 mr-2 text-green-500"></i>
+                                Contact
+                            </a>
+                        </li>
                     </ul>
                 </div>
                 
@@ -516,7 +518,7 @@
                             </div>
                             <div class="ml-4">
                                 <h4 class="font-medium text-white">Our Location</h4>
-                                <p class="text-gray-400 text-sm">123 Tech Street, Gordon, TAS 7150</p>
+                                <p class="text-gray-400 text-sm">115 Dulcia Rd, Gordon, TAS 7150</p>
                             </div>
                         </li>
                         
@@ -526,7 +528,7 @@
                             </div>
                             <div class="ml-4">
                                 <h4 class="font-medium text-white">Email Us</h4>
-                                <a href="mailto:info@greenrepairs.com" class="text-gray-400 hover:text-green-400 text-sm transition-colors duration-200">info@greenrepairs.com</a>
+                                <a href="mailto:coen@green-repairs.com" class="text-gray-400 hover:text-green-400 text-sm transition-colors duration-200">coen@green-repairs.com</a>
                             </div>
                         </li>
                         
@@ -536,23 +538,11 @@
                             </div>
                             <div class="ml-4">
                                 <h4 class="font-medium text-white">Call Us</h4>
-                                <a href="tel:+6112345678" class="text-gray-400 hover:text-green-400 text-sm transition-colors duration-200">+61 123 456 789</a>
+                                <a href="tel:+61482389142" class="text-gray-400 hover:text-green-400 text-sm transition-colors duration-200">+61 482 389 142</a>
                             </div>
                         </li>
                         
-                        <li class="flex items-start">
-                            <div class="flex-shrink-0 w-10 h-10 rounded-lg bg-gray-800 flex items-center justify-center text-green-500">
-                                <i data-feather="clock" class="w-5 h-5"></i>
-                            </div>
-                            <div class="ml-4">
-                                <h4 class="font-medium text-white">Opening Hours</h4>
-                                <div class="text-gray-400 text-sm space-y-1">
-                                    <p>Mon-Fri: 9:00 AM - 6:00 PM</p>
-                                    <p>Sat: 10:00 AM - 4:00 PM</p>
-                                    <p>Sun: Closed</p>
-                                </div>
-                            </div>
-                        </li>
+                        
                     </ul>
                 </div>
             </div>
@@ -561,12 +551,103 @@
             <div class="border-t border-gray-800 mt-12 pt-8 flex flex-col md:flex-row justify-between items-center">
                 <p class="text-gray-500 text-sm">&copy; 2023 Green Repairs. All rights reserved.</p>
                 <div class="flex flex-wrap justify-center md:justify-end gap-x-6 gap-y-2 mt-4 md:mt-0">
-                    <a href="#" class="text-gray-500 hover:text-green-400 text-sm transition-colors duration-200">Privacy Policy</a>
-                    <a href="#" class="text-gray-500 hover:text-green-400 text-sm transition-colors duration-200">Terms of Service</a>
-                    <a href="#" class="text-gray-500 hover:text-green-400 text-sm transition-colors duration-200">Sitemap</a>
-                    <a href="#" class="text-gray-500 hover:text-green-400 text-sm transition-colors duration-200">Accessibility</a>
+                    <a href="/refund-policy.html" class="text-gray-500 hover:text-green-400 text-sm transition-colors duration-200">Refund Policy</a>
+                    <a href="/terms-of-service.html" class="text-gray-500 hover:text-green-400 text-sm transition-colors duration-200">Terms of Service</a>
                 </div>
             </div>
         </div>
     </footer>
+
+    <!-- Initialize AOS, Feather, Theme Toggle, and Contact Form -->
+    <script>
+        // Initial theme from localStorage (default to dark)
+        (function() {
+            try {
+                const saved = localStorage.getItem('theme');
+                const html = document.documentElement;
+                if (saved === 'light') {
+                    html.classList.remove('dark');
+                } else {
+                    html.classList.add('dark');
+                }
+            } catch (e) { /* no-op */ }
+        })();
+
+        // Initialize AOS
+        AOS.init({
+            duration: 800,
+            easing: 'ease-in-out',
+            once: true
+        });
+
+        // Initialize Feather Icons
+        document.addEventListener('DOMContentLoaded', function() {
+            feather.replace();
+
+            // Theme toggle buttons
+            function setTheme(mode) {
+                const html = document.documentElement;
+                if (mode === 'light') {
+                    html.classList.remove('dark');
+                    localStorage.setItem('theme', 'light');
+                } else {
+                    html.classList.add('dark');
+                    localStorage.setItem('theme', 'dark');
+                }
+            }
+            const toggle = document.getElementById('theme-toggle');
+            const toggleMobile = document.getElementById('mobile-theme-toggle');
+            if (toggle) {
+                toggle.addEventListener('click', () => {
+                    const isDark = document.documentElement.classList.contains('dark');
+                    setTheme(isDark ? 'light' : 'dark');
+                    feather.replace();
+                });
+            }
+            if (toggleMobile) {
+                toggleMobile.addEventListener('click', () => {
+                    const isDark = document.documentElement.classList.contains('dark');
+                    setTheme(isDark ? 'light' : 'dark');
+                    feather.replace();
+                });
+            }
+
+            // Mobile menu toggle
+            const mobileBtn = document.getElementById('mobile-menu-button');
+            const mobileMenu = document.getElementById('mobile-menu');
+            if (mobileBtn && mobileMenu) {
+                mobileBtn.addEventListener('click', () => mobileMenu.classList.toggle('hidden'));
+            }
+
+            // Contact form submission with confirmation banner
+            const form = document.getElementById('contactForm');
+            const msg = document.getElementById('formMessage');
+            if (form && msg) {
+                form.addEventListener('submit', async (e) => {
+                    e.preventDefault();
+                    msg.className = 'p-4 mb-6 rounded-lg bg-blue-50 text-blue-700 dark:bg-blue-900/30 dark:text-blue-200';
+                    msg.textContent = 'Sending...';
+                    msg.classList.remove('hidden');
+                    try {
+                        const data = Object.fromEntries(new FormData(form).entries());
+                        const res = await fetch('/.netlify/functions/send-email', {
+                            method: 'POST',
+                            headers: { 'Content-Type': 'application/json' },
+                            body: JSON.stringify(data)
+                        });
+                        if (!res.ok) throw new Error('Network response was not ok');
+                        msg.className = 'p-4 mb-6 rounded-lg bg-green-50 text-green-700 dark:bg-green-900/30 dark:text-green-200';
+                        msg.textContent = 'Thanks! Your message has been sent successfully.';
+                        form.reset();
+                    } catch (err) {
+                        msg.className = 'p-4 mb-6 rounded-lg bg-red-50 text-red-700 dark:bg-red-900/30 dark:text-red-200';
+                        msg.textContent = 'Sorry, something went wrong. Please try again or email us at coen@green-repairs.com';
+                    }
+                    // Auto-hide after 10 seconds
+                    setTimeout(() => { msg.classList.add('hidden'); }, 10000);
+                });
+            }
+        });
+    </script>
+</body>
 </html>
