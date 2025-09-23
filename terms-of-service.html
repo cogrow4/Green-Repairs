@@ -1,11 +1,21 @@
 <!DOCTYPE html>
-<html lang="en" class="scroll-smooth dark">
+<html lang="en" class="scroll-smooth">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Terms of Service - Green Repairs</title>
   <link rel="icon" type="image/svg+xml" href="/static/favicon.svg">
   <link rel="alternate icon" type="image/x-icon" href="/static/favicon.ico">
+  <script>
+    // Early theme initialization
+    (function(){
+      try{
+        const saved = localStorage.getItem('theme');
+        const html = document.documentElement;
+        if(saved === 'light') html.classList.remove('dark'); else html.classList.add('dark');
+      }catch(e){}
+    })();
+  </script>
   <script>
     window.tailwind = window.tailwind || {};
     tailwind.config = { darkMode: 'class' };
@@ -94,12 +104,25 @@
       } catch(e) {}
       const toggle = document.getElementById('theme-toggle');
       if (toggle) {
+        function updateToggleIcons(){
+          // After feather.replace(), icons are <svg> children; toggle visibility manually
+          const svgs = toggle.querySelectorAll('svg');
+          const isDark = document.documentElement.classList.contains('dark');
+          svgs.forEach(svg => svg.classList.add('hidden'));
+          if (svgs.length >= 2) {
+            // index 0: moon, index 1: sun (based on DOM order)
+            if (isDark) { svgs[1].classList.remove('hidden'); } else { svgs[0].classList.remove('hidden'); }
+          }
+        }
+        updateToggleIcons();
         toggle.addEventListener('click', () => {
           const html = document.documentElement;
           const isDark = html.classList.contains('dark');
           if (isDark) { html.classList.remove('dark'); localStorage.setItem('theme','light'); }
           else { html.classList.add('dark'); localStorage.setItem('theme','dark'); }
           feather.replace();
+          // Allow DOM to update, then fix icons
+          setTimeout(updateToggleIcons, 0);
         });
       }
     });

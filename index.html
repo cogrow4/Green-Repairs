@@ -133,6 +133,12 @@
 
     <!-- Hero Section -->
     <section class="hero relative overflow-hidden">
+        <!-- Parallax decorative blobs -->
+        <div class="pointer-events-none" aria-hidden="true">
+            <div data-parallax data-speed="0.15" class="absolute -top-20 -left-16 w-72 h-72 rounded-full bg-green-500/20 blur-3xl"></div>
+            <div data-parallax data-speed="0.08" class="absolute -bottom-10 -right-10 w-80 h-80 rounded-full bg-emerald-400/20 blur-3xl"></div>
+            <div data-parallax data-speed="0.12" class="absolute top-1/3 right-1/4 w-48 h-48 rounded-full bg-teal-400/20 blur-2xl"></div>
+        </div>
         <div class="absolute inset-0 bg-black/30"></div>
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-32 relative z-10">
             <div class="text-center max-w-4xl mx-auto" data-aos="fade-up">
@@ -157,6 +163,22 @@
             </div>
         </div>
         <div class="absolute bottom-0 left-0 right-0 h-32 bg-gradient-to-t from-gray-50 dark:from-gray-900 to-transparent"></div>
+    </section>
+
+    <!-- Testimonials Section (auto-hidden if none) -->
+    <section id="testimonials" class="py-20 bg-gray-50 dark:bg-gray-800 hidden">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16" data-aos="fade-up">
+                <span class="inline-block text-green-600 dark:text-green-400 font-semibold mb-4">WHAT CLIENTS SAY</span>
+                <h2 class="text-3xl md:text-4xl font-bold mb-6">Customer <span class="text-green-600 dark:text-green-400">Testimonials</span></h2>
+                <div class="w-20 h-1 bg-green-500 mx-auto mb-6"></div>
+                <p class="text-lg text-gray-600 dark:text-gray-300 max-w-3xl mx-auto">
+                    Real feedback from our happy customers.
+                </p>
+            </div>
+
+            <div id="testimonialsGrid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8"></div>
+        </div>
     </section>
 
     <!-- Services Section -->
@@ -217,6 +239,57 @@
                     </p>
                     <div class="flex items-center justify-between mt-6 pt-6 border-t border-gray-100 dark:border-gray-800">
                         <span class="text-green-600 dark:text-green-400 font-semibold text-lg">From $45</span>
+                        <a href="#contact" class="text-green-600 dark:text-green-400 hover:text-green-700 dark:hover:text-green-300 transition-colors duration-200">
+                            <i data-feather="arrow-right" class="w-5 h-5"></i>
+                        </a>
+                    </div>
+                </div>
+                
+                <!-- Service 4: Custom Android ROM Installation -->
+                <div class="service-card group" data-aos="fade-up" data-aos-delay="400">
+                    <div class="w-16 h-16 rounded-2xl bg-green-100 dark:bg-green-900/30 flex items-center justify-center mb-6 group-hover:bg-green-500 dark:group-hover:bg-green-600 transition-colors duration-300">
+                        <i data-feather="smartphone" class="w-8 h-8 text-green-600 dark:text-green-400 group-hover:text-white transition-colors duration-300"></i>
+                    </div>
+                    <h3 class="text-2xl font-bold mb-4">Custom Android ROM Installation</h3>
+                    <p class="text-gray-600 dark:text-gray-300 mb-6">
+                        Install and configure custom Android ROMs (e.g., LineageOS) with backups, bootloader unlocking, and post-install optimization.
+                    </p>
+                    <div class="flex items-center justify-between mt-6 pt-6 border-t border-gray-100 dark:border-gray-800">
+                        <span class="text-green-600 dark:text-green-400 font-semibold text-lg">From $80</span>
+                        <a href="#contact" class="text-green-600 dark:text-green-400 hover:text-green-700 dark:hover:text-green-300 transition-colors duration-200">
+                            <i data-feather="arrow-right" class="w-5 h-5"></i>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Service 5: Custom PC Building -->
+                <div class="service-card group" data-aos="fade-up" data-aos-delay="500">
+                    <div class="w-16 h-16 rounded-2xl bg-green-100 dark:bg-green-900/30 flex items-center justify-center mb-6 group-hover:bg-green-500 dark:group-hover:bg-green-600 transition-colors duration-300">
+                        <i data-feather="cpu" class="w-8 h-8 text-green-600 dark:text-green-400 group-hover:text-white transition-colors duration-300"></i>
+                    </div>
+                    <h3 class="text-2xl font-bold mb-4">Custom PC Building</h3>
+                    <p class="text-gray-600 dark:text-gray-300 mb-6">
+                        End-to-end PC builds for gaming, creative work, and home/office. Parts selection, assembly, cable management, BIOS setup, and OS install.
+                    </p>
+                    <div class="flex items-center justify-between mt-6 pt-6 border-t border-gray-100 dark:border-gray-800">
+                        <span class="text-green-600 dark:text-green-400 font-semibold text-lg">From $120</span>
+                        <a href="#contact" class="text-green-600 dark:text-green-400 hover:text-green-700 dark:hover:text-green-300 transition-colors duration-200">
+                            <i data-feather="arrow-right" class="w-5 h-5"></i>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Service 6: Software Debugging & Tech Help -->
+                <div class="service-card group" data-aos="fade-up" data-aos-delay="600">
+                    <div class="w-16 h-16 rounded-2xl bg-green-100 dark:bg-green-900/30 flex items-center justify-center mb-6 group-hover:bg-green-500 dark:group-hover:bg-green-600 transition-colors duration-300">
+                        <i data-feather="help-circle" class="w-8 h-8 text-green-600 dark:text-green-400 group-hover:text-white transition-colors duration-300"></i>
+                    </div>
+                    <h3 class="text-2xl font-bold mb-4">Software Debugging & Tech Help</h3>
+                    <p class="text-gray-600 dark:text-gray-300 mb-6">
+                        Friendly assistance with software issues, device setup, accounts, backups, and training — especially helpful for seniors.
+                    </p>
+                    <div class="flex items-center justify-between mt-6 pt-6 border-t border-gray-100 dark:border-gray-800">
+                        <span class="text-green-600 dark:text-green-400 font-semibold text-lg">From $40/hr</span>
                         <a href="#contact" class="text-green-600 dark:text-green-400 hover:text-green-700 dark:hover:text-green-300 transition-colors duration-200">
                             <i data-feather="arrow-right" class="w-5 h-5"></i>
                         </a>
@@ -297,7 +370,7 @@
                     
                     <div class="grid grid-cols-3 gap-4 mt-6">
                         <div class="bg-white dark:bg-gray-700 p-4 rounded-xl shadow-md text-center">
-                            <div class="text-3xl font-bold text-green-600 dark:text-green-400">100+</div>
+                            <div class="text-3xl font-bold text-green-600 dark:text-green-400"><span class="count-up" data-count="50">0</span>+</div>
                             <div class="text-sm text-gray-600 dark:text-gray-300">Devices Repaired</div>
                         </div>
                         <div class="bg-white dark:bg-gray-700 p-4 rounded-xl shadow-md text-center">
@@ -305,7 +378,7 @@
                             <div class="text-sm text-gray-600 dark:text-gray-300">Success Rate</div>
                         </div>
                         <div class="bg-white dark:bg-gray-700 p-4 rounded-xl shadow-md text-center">
-                            <div class="text-3xl font-bold text-green-600 dark:text-green-400">24h</div>
+                            <div class="text-3xl font-bold text-green-600 dark:text-green-400"><span class="count-up" data-count="24">0</span>h</div>
                             <div class="text-sm text-gray-600 dark:text-gray-300">Average Turnaround</div>
                         </div>
                     </div>
@@ -455,7 +528,7 @@
     </section>
 
     <!-- Footer -->
-    <footer class="bg-gray-900 text-white pt-20 pb-12 relative overflow-hidden">
+    <footer class="bg-white text-gray-900 dark:bg-gray-900 dark:text-white pt-20 pb-12 relative overflow-hidden">
         <!-- Decorative elements -->
         <div class="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-green-500 to-blue-500"></div>
         <div class="absolute top-0 right-0 -mt-10 -mr-10 w-64 h-64 bg-green-500 rounded-full mix-blend-multiply filter blur-3xl opacity-10"></div>
@@ -479,7 +552,7 @@
                 
                 <!-- Quick Links -->
                 <div>
-                    <h3 class="text-lg font-bold text-white mb-6 relative inline-block">
+                    <h3 class="text-lg font-bold text-gray-900 dark:text-white mb-6 relative inline-block">
                         Quick Links
                         <span class="absolute -bottom-2 left-0 w-10 h-0.5 bg-green-500"></span>
                     </h3>
@@ -507,7 +580,7 @@
                 
                 <!-- Contact Info -->
                 <div>
-                    <h3 class="text-lg font-bold text-white mb-6 relative inline-block">
+                    <h3 class="text-lg font-bold text-gray-900 dark:text-white mb-6 relative inline-block">
                         Contact Us
                         <span class="absolute -bottom-2 left-0 w-10 h-0.5 bg-green-500"></span>
                     </h3>
@@ -553,6 +626,7 @@
                 <div class="flex flex-wrap justify-center md:justify-end gap-x-6 gap-y-2 mt-4 md:mt-0">
                     <a href="/refund-policy.html" class="text-gray-500 hover:text-green-400 text-sm transition-colors duration-200">Refund Policy</a>
                     <a href="/terms-of-service.html" class="text-gray-500 hover:text-green-400 text-sm transition-colors duration-200">Terms of Service</a>
+                    <a href="/admin.html" class="text-gray-500 hover:text-green-400 text-sm transition-colors duration-200">Admin Login</a>
                 </div>
             </div>
         </div>
@@ -622,12 +696,33 @@
             // Contact form submission with confirmation banner
             const form = document.getElementById('contactForm');
             const msg = document.getElementById('formMessage');
+            // Simple toast helper
+            function showToast(text, type = 'info'){
+                const toast = document.createElement('div');
+                const base = 'fixed top-6 right-6 z-[100] shadow-xl rounded-lg px-4 py-3 text-sm transition-all duration-300';
+                const theme = type === 'success' ? 'bg-green-600 text-white' : (type === 'error' ? 'bg-red-600 text-white' : 'bg-gray-800 text-white');
+                toast.className = `${base} ${theme}`;
+                toast.textContent = text;
+                document.body.appendChild(toast);
+                setTimeout(()=>{ toast.style.opacity = '0'; toast.style.transform = 'translateY(-6px)'; }, 3000);
+                setTimeout(()=>{ toast.remove(); }, 3600);
+            }
             if (form && msg) {
                 form.addEventListener('submit', async (e) => {
                     e.preventDefault();
                     msg.className = 'p-4 mb-6 rounded-lg bg-blue-50 text-blue-700 dark:bg-blue-900/30 dark:text-blue-200';
                     msg.textContent = 'Sending...';
                     msg.classList.remove('hidden');
+                    // Button loading state
+                    const submitBtn = form.querySelector('button[type="submit"]');
+                    const originalHTML = submitBtn ? submitBtn.innerHTML : '';
+                    if (submitBtn) {
+                        submitBtn.disabled = true;
+                        submitBtn.classList.add('opacity-80', 'cursor-not-allowed');
+                        submitBtn.innerHTML = '<svg class="animate-spin -ml-1 mr-2 h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"><circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle><path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8v4a4 4 0 00-4 4H4z"></path></svg>Sending...';
+                    }
+                    // Disable inputs to prevent multiple sends
+                    Array.from(form.elements).forEach(el => { if (el.tagName === 'INPUT' || el.tagName === 'TEXTAREA' || el.tagName === 'SELECT') el.setAttribute('readonly','readonly'); });
                     try {
                         const data = Object.fromEntries(new FormData(form).entries());
                         const res = await fetch('/.netlify/functions/send-email', {
@@ -639,14 +734,193 @@
                         msg.className = 'p-4 mb-6 rounded-lg bg-green-50 text-green-700 dark:bg-green-900/30 dark:text-green-200';
                         msg.textContent = 'Thanks! Your message has been sent successfully.';
                         form.reset();
+                        showToast('Message sent. We\'ll get back to you within 24 hours.', 'success');
+                        confettiBurst();
                     } catch (err) {
                         msg.className = 'p-4 mb-6 rounded-lg bg-red-50 text-red-700 dark:bg-red-900/30 dark:text-red-200';
                         msg.textContent = 'Sorry, something went wrong. Please try again or email us at coen@green-repairs.com';
+                        showToast('Sending failed. Please try again or email coen@green-repairs.com', 'error');
                     }
                     // Auto-hide after 10 seconds
                     setTimeout(() => { msg.classList.add('hidden'); }, 10000);
+                    // Restore inputs and button
+                    if (submitBtn) {
+                        submitBtn.disabled = false;
+                        submitBtn.classList.remove('opacity-80', 'cursor-not-allowed');
+                        submitBtn.innerHTML = originalHTML;
+                    }
+                    Array.from(form.elements).forEach(el => { if (el.hasAttribute && el.hasAttribute('readonly')) el.removeAttribute('readonly'); });
+                    // Ensure the feedback is visible
+                    try { msg.scrollIntoView({ behavior: 'smooth', block: 'start' }); } catch(e) {}
                 });
             }
+
+            // Testimonials rendering (from Netlify Function API)
+            const TESTIMONIALS_API = '/.netlify/functions/testimonials';
+            async function loadTestimonials(){
+                try {
+                    const res = await fetch(TESTIMONIALS_API);
+                    if (!res.ok) throw new Error('Failed');
+                    return await res.json();
+                } catch(e){ return []; }
+            }
+            function starRow(rating){
+                const r = Math.max(1, Math.min(5, rating||5));
+                return '★'.repeat(r) + '☆'.repeat(5-r);
+            }
+            function renderTestimonials(){
+                (async () => {
+                    const list = await loadTestimonials();
+                    const section = document.getElementById('testimonials');
+                    const grid = document.getElementById('testimonialsGrid');
+                    if(!section || !grid) return;
+                    if(!list || list.length === 0){
+                        section.classList.add('hidden');
+                        grid.innerHTML = '';
+                        return;
+                    }
+                    section.classList.remove('hidden');
+                    grid.innerHTML = '';
+                    list.forEach((t) => {
+                        const card = document.createElement('div');
+                        card.className = 'service-card bg-white dark:bg-gray-800';
+                        card.setAttribute('data-aos','fade-up');
+                        card.innerHTML = `
+                            <div class="flex items-center mb-4">
+                                <div class="w-12 h-12 rounded-full bg-green-100 dark:bg-green-900/30 flex items-center justify-center mr-4">
+                                    <i data-feather="smile" class="w-6 h-6 text-green-600 dark:text-green-400"></i>
+                                </div>
+                                <div>
+                                    <div class="font-semibold">${t.name || 'Anonymous'}</div>
+                                    ${t.location ? `<div class=\"text-sm text-gray-500\">${t.location}</div>` : ''}
+                                </div>
+                            </div>
+                            <div class="text-yellow-500 text-sm mb-3">${starRow(t.rating)}</div>
+                            <p class="text-gray-700 dark:text-gray-300 whitespace-pre-line">${t.message || ''}</p>
+                        `;
+                        grid.appendChild(card);
+                    });
+                    // Re-run feather icons for dynamically added elements
+                    feather.replace();
+                })();
+            }
+
+            // Initial render on load
+            renderTestimonials();
+
+            // Parallax effects for elements with [data-parallax]
+            const parallaxEls = Array.from(document.querySelectorAll('[data-parallax]'));
+            function applyParallax(){
+                const scrollY = window.scrollY || window.pageYOffset;
+                parallaxEls.forEach(el => {
+                    const speed = parseFloat(el.getAttribute('data-speed')) || 0.1;
+                    el.style.transform = `translate3d(0, ${scrollY * speed}px, 0)`;
+                });
+            }
+            applyParallax();
+            window.addEventListener('scroll', applyParallax, { passive: true });
+            // Subtle mouse parallax for hero decorations
+            const hero = document.querySelector('.hero');
+            if (hero) {
+                hero.addEventListener('mousemove', (e) => {
+                    const rect = hero.getBoundingClientRect();
+                    const cx = (e.clientX - rect.left) / rect.width - 0.5;
+                    const cy = (e.clientY - rect.top) / rect.height - 0.5;
+                    parallaxEls.forEach(el => {
+                        const speed = parseFloat(el.getAttribute('data-speed')) || 0.1;
+                        const tx = cx * 20 * speed;
+                        const ty = cy * 20 * speed;
+                        el.style.transform = `translate3d(${tx}px, ${ty + (window.scrollY * speed)}px, 0)`;
+                    });
+                });
+            }
+
+            // Confetti burst (CSS-based, lightweight)
+            function confettiBurst(){
+                const colors = ['#22c55e','#16a34a','#84cc16','#a3e635','#facc15'];
+                const container = document.createElement('div');
+                container.style.position = 'fixed';
+                container.style.inset = '0';
+                container.style.pointerEvents = 'none';
+                container.style.zIndex = '1000';
+                document.body.appendChild(container);
+                const count = 36;
+                for (let i=0;i<count;i++){
+                    const p = document.createElement('div');
+                    const size = 6 + Math.random()*8;
+                    p.style.position = 'absolute';
+                    p.style.left = '50%';
+                    p.style.top = '25%';
+                    p.style.width = size+'px';
+                    p.style.height = size+'px';
+                    p.style.background = colors[i % colors.length];
+                    p.style.borderRadius = '1px';
+                    p.style.opacity = '0.9';
+                    p.style.transform = 'translate(-50%, -50%)';
+                    const dx = (Math.random()-0.5) * 400;
+                    const dy = 150 + Math.random()*300;
+                    const rot = (Math.random()*720-360);
+                    const dur = 700 + Math.random()*600;
+                    p.animate([
+                        { transform: 'translate(-50%, -50%) rotate(0deg)' },
+                        { transform: `translate(${dx}px, ${dy}px) rotate(${rot}deg)` }
+                    ], { duration: dur, easing: 'cubic-bezier(.2,.7,.2,1)', fill: 'forwards' });
+                    container.appendChild(p);
+                }
+                setTimeout(()=>{ container.remove(); }, 1400);
+            }
+
+            // Count-up animation for stats
+            const counters = Array.from(document.querySelectorAll('.count-up'));
+            if (counters.length){
+                const obs = new IntersectionObserver((entries, observer)=>{
+                    entries.forEach(entry=>{
+                        if(entry.isIntersecting){
+                            const el = entry.target;
+                            const target = parseInt(el.getAttribute('data-count'), 10) || 0;
+                            const duration = 1200;
+                            const startTime = performance.now();
+                            function tick(t){
+                                const p = Math.min(1, (t - startTime)/duration);
+                                const val = Math.floor(target * (1 - Math.pow(1-p, 3))); // ease-out cubic
+                                el.textContent = String(val);
+                                if (p < 1) requestAnimationFrame(tick);
+                            }
+                            requestAnimationFrame(tick);
+                            observer.unobserve(el);
+                        }
+                    });
+                }, { threshold: 0.4 });
+                counters.forEach(el=>obs.observe(el));
+            }
+
+            // Tilt effect for service cards
+            const cards = Array.from(document.querySelectorAll('.service-card'));
+            cards.forEach(card => {
+                card.addEventListener('mousemove', (e) => {
+                    const rect = card.getBoundingClientRect();
+                    const x = (e.clientX - rect.left) / rect.width - 0.5;
+                    const y = (e.clientY - rect.top) / rect.height - 0.5;
+                    card.style.transform = `rotateX(${ -y * 6 }deg) rotateY(${ x * 6 }deg) translateZ(0)`;
+                });
+                card.addEventListener('mouseleave', () => {
+                    card.style.transform = '';
+                });
+            });
+
+            // Back-to-top button
+            (function(){
+                const btn = document.createElement('button');
+                btn.setAttribute('aria-label','Back to top');
+                btn.className = 'fixed bottom-6 right-6 z-50 hidden md:flex items-center justify-center w-11 h-11 rounded-full bg-green-600 text-white shadow-lg hover:bg-green-700 transition';
+                btn.innerHTML = '<svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="18 15 12 9 6 15"></polyline></svg>';
+                document.body.appendChild(btn);
+                btn.addEventListener('click', ()=> window.scrollTo({ top: 0, behavior: 'smooth' }));
+                window.addEventListener('scroll', ()=>{
+                    const show = window.scrollY > 400;
+                    btn.classList.toggle('hidden', !show);
+                }, { passive: true });
+            })();
         });
     </script>
 </body>
