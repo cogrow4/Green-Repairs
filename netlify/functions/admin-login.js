@@ -1,7 +1,8 @@
 const crypto = require('crypto');
 
 const USERNAME = 'admin';
-const PASSWORD = '9HuonPines';
+// Read password from environment variable for security. No fallback in production.
+const PASSWORD = process.env.ADMIN_PASSWORD;
 const TOKEN_TTL_SECONDS = 60 * 60 * 12; // 12 hours
 const COOKIE_NAME = 'gr_admin';
 
@@ -41,6 +42,15 @@ exports.handler = async (event) => {
   }
 
   try {
+    // Ensure admin password is configured
+    if (!PASSWORD) {
+      return {
+        statusCode: 500,
+        headers,
+        body: JSON.stringify({ error: 'Admin password not configured', code: 'ADMIN_PASSWORD_NOT_SET' })
+      };
+    }
+
     const { username, password } = JSON.parse(event.body || '{}');
     if (username !== USERNAME || password !== PASSWORD) {
       return { statusCode: 401, headers, body: JSON.stringify({ error: 'Invalid credentials' }) };

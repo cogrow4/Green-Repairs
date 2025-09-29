@@ -46,6 +46,32 @@ MAILGUN_DOMAIN=your_mailgun_domain
 MAILGUN_TO_EMAIL=your_email@example.com
 ```
 
+### Netlify Functions (Admin Login)
+
+The admin panel at `/admin.html` uses Netlify Functions for authentication and testimonial management. You must set the following environment variables:
+
+```
+# Required
+ADMIN_PASSWORD=your_strong_admin_password
+
+# Recommended (used to sign the auth cookie)
+ADMIN_SECRET=long_random_string
+```
+
+- Username is always `admin` (hardcoded in `netlify/functions/admin-login.js`).
+- If `ADMIN_PASSWORD` is not set, the login function returns:
+
+```json
+{ "error": "Admin password not configured", "code": "ADMIN_PASSWORD_NOT_SET" }
+```
+
+#### Local development
+- You can place these variables in a local `.env` that your dev tooling loads (e.g., `netlify dev` supports `.env`).
+- Alternatively, export them in your shell before running your local server.
+
+#### Netlify deployment
+- In the Netlify dashboard, go to Site settings → Build & deploy → Environment and add `ADMIN_PASSWORD` (required) and `ADMIN_SECRET` (recommended).
+
 ## Deployment
 
 ### Shared Hosting

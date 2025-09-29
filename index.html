@@ -87,6 +87,12 @@
     
     <!-- Feather Icons -->
     <script src="https://unpkg.com/feather-icons@4.28.0/dist/feather.min.js"></script>
+    
+    <!-- Advanced Effects System -->
+    <script src="/js/effects.js"></script>
+    
+    <!-- Enhanced Main JavaScript -->
+    <script src="/js/main.js"></script>
 </head>
 <body class="antialiased bg-gray-50 text-gray-900 dark:bg-gray-900 dark:text-gray-100 transition-colors duration-200">
     <!-- Navigation -->
@@ -132,36 +138,68 @@
     </nav>
 
     <!-- Hero Section -->
-    <section class="hero relative overflow-hidden">
-        <!-- Parallax decorative blobs -->
+    <section class="hero relative overflow-hidden min-h-screen flex items-center">
+        <!-- Enhanced Parallax decorative blobs -->
         <div class="pointer-events-none" aria-hidden="true">
-            <div data-parallax data-speed="0.15" class="absolute -top-20 -left-16 w-72 h-72 rounded-full bg-green-500/20 blur-3xl"></div>
-            <div data-parallax data-speed="0.08" class="absolute -bottom-10 -right-10 w-80 h-80 rounded-full bg-emerald-400/20 blur-3xl"></div>
-            <div data-parallax data-speed="0.12" class="absolute top-1/3 right-1/4 w-48 h-48 rounded-full bg-teal-400/20 blur-2xl"></div>
+            <div data-parallax data-speed="0.15" class="absolute -top-20 -left-16 w-72 h-72 rounded-full bg-green-500/20 blur-3xl animate-pulse"></div>
+            <div data-parallax data-speed="0.08" class="absolute -bottom-10 -right-10 w-80 h-80 rounded-full bg-emerald-400/20 blur-3xl animate-pulse" style="animation-delay: 1s;"></div>
+            <div data-parallax data-speed="0.12" class="absolute top-1/3 right-1/4 w-48 h-48 rounded-full bg-teal-400/20 blur-2xl animate-pulse" style="animation-delay: 2s;"></div>
+            <div data-parallax data-speed="0.20" class="absolute top-1/4 left-1/3 w-64 h-64 rounded-full bg-purple-500/15 blur-3xl animate-pulse" style="animation-delay: 3s;"></div>
+            <div data-parallax data-speed="0.10" class="absolute bottom-1/4 right-1/3 w-56 h-56 rounded-full bg-blue-500/15 blur-2xl animate-pulse" style="animation-delay: 4s;"></div>
         </div>
-        <div class="absolute inset-0 bg-black/30"></div>
+        <div class="absolute inset-0 bg-gradient-to-br from-black/40 via-black/20 to-black/40"></div>
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-32 relative z-10">
-            <div class="text-center max-w-4xl mx-auto" data-aos="fade-up">
-                <span class="inline-block px-3 py-1 text-sm font-semibold text-green-100 bg-green-700/50 rounded-full mb-6 backdrop-blur-sm">
+            <div class="hero-content text-center max-w-4xl mx-auto" data-aos="fade-up">
+                <span class="inline-block px-4 py-2 text-sm font-semibold text-green-100 bg-green-700/50 rounded-full mb-8 backdrop-blur-sm border border-green-400/20 animate-float">
+                    <i data-feather="map-pin" class="inline w-4 h-4 mr-2"></i>
                     Gordon, Tasmania • Since 2022
                 </span>
-                <h1 class="text-4xl md:text-6xl font-bold mb-6 leading-tight">
-                    Professional <span class="text-green-300">Tech Repair</span> Services
+                <h1 class="text-4xl md:text-6xl lg:text-7xl font-bold mb-8 leading-tight">
+                    Professional <span class="text-green-300 relative">
+                        Tech Repair
+                        <div class="absolute -inset-1 bg-green-500/20 blur-xl rounded-lg"></div>
+                    </span> Services
                 </h1>
-                <p class="text-xl md:text-2xl text-green-100 mb-10 max-w-3xl mx-auto">
-                    Fast, reliable, and affordable device repairs with a 60-day warranty on all services.
+                <p class="text-xl md:text-2xl text-green-100 mb-12 max-w-3xl mx-auto leading-relaxed">
+                    Fast, reliable, and affordable device repairs with a 60-day warranty on all services. 
+                    <span class="text-green-300 font-semibold">Experience the difference.</span>
                 </p>
-                <div class="flex flex-col sm:flex-row justify-center gap-4">
-                    <a href="#services" class="btn btn-outline bg-white/10 backdrop-blur-sm border-white/20 text-white hover:bg-white/20">
-                        Our Services
+                <div class="flex flex-col sm:flex-row justify-center gap-6 mb-16">
+                    <a href="#services" class="btn btn-outline bg-white/10 backdrop-blur-sm border-white/20 text-white hover:bg-white/20 group">
+                        <span>Our Services</span>
+                        <i data-feather="chevron-down" class="ml-2 w-5 h-5 group-hover:translate-y-1 transition-transform"></i>
                     </a>
-                    <a href="#contact" class="btn btn-primary bg-green-600 hover:bg-green-700 text-white shadow-lg shadow-green-500/20">
-                        Get a Free Quote
-                        <i data-feather="arrow-right" class="ml-2 w-5 h-5"></i>
+                    <a href="#contact" class="btn btn-primary bg-green-600 hover:bg-green-700 text-white shadow-lg shadow-green-500/20 group">
+                        <span>Get a Free Quote</span>
+                        <i data-feather="arrow-right" class="ml-2 w-5 h-5 group-hover:translate-x-1 transition-transform"></i>
                     </a>
+                </div>
+                
+                <!-- Floating stats -->
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-2xl mx-auto">
+                    <div class="bg-white/10 backdrop-blur-sm rounded-2xl p-6 border border-white/20 animate-float" style="animation-delay: 0.5s;">
+                        <div class="text-3xl font-bold text-green-300 mb-2">50+</div>
+                        <div class="text-sm text-green-100">Devices Repaired</div>
+                    </div>
+                    <div class="bg-white/10 backdrop-blur-sm rounded-2xl p-6 border border-white/20 animate-float" style="animation-delay: 1s;">
+                        <div class="text-3xl font-bold text-green-300 mb-2">24h</div>
+                        <div class="text-sm text-green-100">Average Turnaround</div>
+                    </div>
+                    <div class="bg-white/10 backdrop-blur-sm rounded-2xl p-6 border border-white/20 animate-float" style="animation-delay: 1.5s;">
+                        <div class="text-3xl font-bold text-green-300 mb-2">60d</div>
+                        <div class="text-sm text-green-100">Warranty Period</div>
+                    </div>
                 </div>
             </div>
         </div>
+        
+        <!-- Scroll indicator -->
+        <div class="absolute bottom-8 left-1/2 transform -translate-x-1/2 animate-bounce">
+            <div class="w-6 h-10 border-2 border-white/30 rounded-full flex justify-center">
+                <div class="w-1 h-3 bg-white/50 rounded-full mt-2 animate-pulse"></div>
+            </div>
+        </div>
+        
         <div class="absolute bottom-0 left-0 right-0 h-32 bg-gradient-to-t from-gray-50 dark:from-gray-900 to-transparent"></div>
     </section>
 
@@ -182,32 +220,48 @@
     </section>
 
     <!-- Services Section -->
-    <section id="services" class="py-20 bg-white dark:bg-gray-900">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <section id="services" class="py-20 bg-white dark:bg-gray-900 relative overflow-hidden">
+        <!-- Background decorative elements -->
+        <div class="absolute inset-0 pointer-events-none">
+            <div data-parallax data-speed="0.05" class="absolute top-10 right-10 w-32 h-32 bg-green-500/5 rounded-full blur-2xl"></div>
+            <div data-parallax data-speed="0.03" class="absolute bottom-20 left-10 w-48 h-48 bg-emerald-500/5 rounded-full blur-3xl"></div>
+        </div>
+        
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
             <div class="text-center mb-16" data-aos="fade-up">
-                <span class="inline-block text-green-600 dark:text-green-400 font-semibold mb-4">WHAT WE OFFER</span>
-                <h2 class="text-3xl md:text-4xl font-bold mb-6">Our <span class="text-green-600 dark:text-green-400">Services</span></h2>
-                <div class="w-20 h-1 bg-green-500 mx-auto mb-6"></div>
-                <p class="text-lg text-gray-600 dark:text-gray-300 max-w-3xl mx-auto">
-                    Professional repair services with a 60-day warranty on all parts and labor.
+                <span class="inline-block text-green-600 dark:text-green-400 font-semibold mb-4 px-4 py-2 bg-green-50 dark:bg-green-900/20 rounded-full border border-green-200 dark:border-green-800">
+                    <i data-feather="tool" class="inline w-4 h-4 mr-2"></i>
+                    WHAT WE OFFER
+                </span>
+                <h2 class="text-3xl md:text-4xl font-bold mb-6">
+                    Our <span class="text-green-600 dark:text-green-400 relative">
+                        Services
+                        <div class="absolute -bottom-2 left-0 right-0 h-1 bg-gradient-to-r from-green-400 to-emerald-500 rounded-full"></div>
+                    </span>
+                </h2>
+                <div class="w-20 h-1 bg-gradient-to-r from-green-400 to-emerald-500 mx-auto mb-6 rounded-full"></div>
+                <p class="text-lg text-gray-600 dark:text-gray-300 max-w-3xl mx-auto leading-relaxed">
+                    Professional repair services with a <span class="text-green-600 dark:text-green-400 font-semibold">60-day warranty</span> on all parts and labor.
                 </p>
             </div>
             
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
                 <!-- Service 1 -->
-                <div class="service-card group" data-aos="fade-up" data-aos-delay="100">
-                    <div class="w-16 h-16 rounded-2xl bg-green-100 dark:bg-green-900/30 flex items-center justify-center mb-6 group-hover:bg-green-500 dark:group-hover:bg-green-600 transition-colors duration-300">
-                        <i data-feather="smartphone" class="w-8 h-8 text-green-600 dark:text-green-400 group-hover:text-white transition-colors duration-300"></i>
-                    </div>
-                    <h3 class="text-2xl font-bold mb-4">Phone Repair</h3>
-                    <p class="text-gray-600 dark:text-gray-300 mb-6">
-                        Expert repairs for cracked screens, battery replacements, charging port issues, and more for all smartphone models.
-                    </p>
-                    <div class="flex items-center justify-between mt-6 pt-6 border-t border-gray-100 dark:border-gray-800">
-                        <span class="text-green-600 dark:text-green-400 font-semibold text-lg">From $40</span>
-                        <a href="#contact" class="text-green-600 dark:text-green-400 hover:text-green-700 dark:hover:text-green-300 transition-colors duration-200">
-                            <i data-feather="arrow-right" class="w-5 h-5"></i>
-                        </a>
+                <div class="service-card group relative" data-aos="fade-up" data-aos-delay="100">
+                    <div class="relative z-10">
+                        <div class="w-16 h-16 rounded-2xl bg-gradient-to-br from-green-100 to-emerald-100 dark:from-green-900/30 dark:to-emerald-900/30 flex items-center justify-center mb-6 group-hover:scale-110 group-hover:rotate-3 transition-all duration-300 shadow-lg group-hover:shadow-green-200 dark:group-hover:shadow-green-900/50">
+                            <i data-feather="smartphone" class="w-8 h-8 text-green-600 dark:text-green-400 group-hover:text-green-700 dark:group-hover:text-green-300 transition-colors duration-300"></i>
+                        </div>
+                        <h3 class="text-2xl font-bold mb-4 group-hover:text-green-600 dark:group-hover:text-green-400 transition-colors duration-300">Phone Repair</h3>
+                        <p class="text-gray-600 dark:text-gray-300 mb-6 leading-relaxed">
+                            Expert repairs for cracked screens, battery replacements, charging port issues, and more for all smartphone models.
+                        </p>
+                        <div class="flex items-center justify-between mt-6 pt-6 border-t border-gray-100 dark:border-gray-800 group-hover:border-green-200 dark:group-hover:border-green-800 transition-colors duration-300">
+                            <span class="text-green-600 dark:text-green-400 font-semibold text-lg">From $40</span>
+                            <a href="#contact" class="inline-flex items-center justify-center w-10 h-10 rounded-full bg-green-50 dark:bg-green-900/20 text-green-600 dark:text-green-400 hover:bg-green-100 dark:hover:bg-green-900/40 transition-all duration-200 group-hover:scale-110">
+                                <i data-feather="arrow-right" class="w-5 h-5"></i>
+                            </a>
+                        </div>
                     </div>
                 </div>
                 
@@ -632,9 +686,9 @@
         </div>
     </footer>
 
-    <!-- Initialize AOS, Feather, Theme Toggle, and Contact Form -->
+    <!-- All JavaScript functionality is now handled by /js/effects.js and /js/main.js -->
     <script>
-        // Initial theme from localStorage (default to dark)
+        // Initial theme setup (must run immediately)
         (function() {
             try {
                 const saved = localStorage.getItem('theme');
@@ -646,282 +700,13 @@
                 }
             } catch (e) { /* no-op */ }
         })();
-
-        // Initialize AOS
-        AOS.init({
-            duration: 800,
-            easing: 'ease-in-out',
-            once: true
-        });
-
-        // Initialize Feather Icons
-        document.addEventListener('DOMContentLoaded', function() {
-            feather.replace();
-
-            // Theme toggle buttons
-            function setTheme(mode) {
-                const html = document.documentElement;
-                if (mode === 'light') {
-                    html.classList.remove('dark');
-                    localStorage.setItem('theme', 'light');
-                } else {
-                    html.classList.add('dark');
-                    localStorage.setItem('theme', 'dark');
-                }
-            }
-            const toggle = document.getElementById('theme-toggle');
-            const toggleMobile = document.getElementById('mobile-theme-toggle');
-            if (toggle) {
-                toggle.addEventListener('click', () => {
-                    const isDark = document.documentElement.classList.contains('dark');
-                    setTheme(isDark ? 'light' : 'dark');
-                    feather.replace();
-                });
-            }
-            if (toggleMobile) {
-                toggleMobile.addEventListener('click', () => {
-                    const isDark = document.documentElement.classList.contains('dark');
-                    setTheme(isDark ? 'light' : 'dark');
-                    feather.replace();
-                });
-            }
-
-            // Mobile menu toggle
-            const mobileBtn = document.getElementById('mobile-menu-button');
-            const mobileMenu = document.getElementById('mobile-menu');
-            if (mobileBtn && mobileMenu) {
-                mobileBtn.addEventListener('click', () => mobileMenu.classList.toggle('hidden'));
-            }
-
-            // Contact form submission with confirmation banner
-            const form = document.getElementById('contactForm');
-            const msg = document.getElementById('formMessage');
-            // Simple toast helper
-            function showToast(text, type = 'info'){
-                const toast = document.createElement('div');
-                const base = 'fixed top-6 right-6 z-[100] shadow-xl rounded-lg px-4 py-3 text-sm transition-all duration-300';
-                const theme = type === 'success' ? 'bg-green-600 text-white' : (type === 'error' ? 'bg-red-600 text-white' : 'bg-gray-800 text-white');
-                toast.className = `${base} ${theme}`;
-                toast.textContent = text;
-                document.body.appendChild(toast);
-                setTimeout(()=>{ toast.style.opacity = '0'; toast.style.transform = 'translateY(-6px)'; }, 3000);
-                setTimeout(()=>{ toast.remove(); }, 3600);
-            }
-            if (form && msg) {
-                form.addEventListener('submit', async (e) => {
-                    e.preventDefault();
-                    msg.className = 'p-4 mb-6 rounded-lg bg-blue-50 text-blue-700 dark:bg-blue-900/30 dark:text-blue-200';
-                    msg.textContent = 'Sending...';
-                    msg.classList.remove('hidden');
-                    // Button loading state
-                    const submitBtn = form.querySelector('button[type="submit"]');
-                    const originalHTML = submitBtn ? submitBtn.innerHTML : '';
-                    if (submitBtn) {
-                        submitBtn.disabled = true;
-                        submitBtn.classList.add('opacity-80', 'cursor-not-allowed');
-                        submitBtn.innerHTML = '<svg class="animate-spin -ml-1 mr-2 h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"><circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle><path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8v4a4 4 0 00-4 4H4z"></path></svg>Sending...';
-                    }
-                    // Disable inputs to prevent multiple sends
-                    Array.from(form.elements).forEach(el => { if (el.tagName === 'INPUT' || el.tagName === 'TEXTAREA' || el.tagName === 'SELECT') el.setAttribute('readonly','readonly'); });
-                    try {
-                        const data = Object.fromEntries(new FormData(form).entries());
-                        const res = await fetch('/.netlify/functions/send-email', {
-                            method: 'POST',
-                            headers: { 'Content-Type': 'application/json' },
-                            body: JSON.stringify(data)
-                        });
-                        if (!res.ok) throw new Error('Network response was not ok');
-                        msg.className = 'p-4 mb-6 rounded-lg bg-green-50 text-green-700 dark:bg-green-900/30 dark:text-green-200';
-                        msg.textContent = 'Thanks! Your message has been sent successfully.';
-                        form.reset();
-                        showToast('Message sent. We\'ll get back to you within 24 hours.', 'success');
-                        confettiBurst();
-                    } catch (err) {
-                        msg.className = 'p-4 mb-6 rounded-lg bg-red-50 text-red-700 dark:bg-red-900/30 dark:text-red-200';
-                        msg.textContent = 'Sorry, something went wrong. Please try again or email us at coen@green-repairs.com';
-                        showToast('Sending failed. Please try again or email coen@green-repairs.com', 'error');
-                    }
-                    // Auto-hide after 10 seconds
-                    setTimeout(() => { msg.classList.add('hidden'); }, 10000);
-                    // Restore inputs and button
-                    if (submitBtn) {
-                        submitBtn.disabled = false;
-                        submitBtn.classList.remove('opacity-80', 'cursor-not-allowed');
-                        submitBtn.innerHTML = originalHTML;
-                    }
-                    Array.from(form.elements).forEach(el => { if (el.hasAttribute && el.hasAttribute('readonly')) el.removeAttribute('readonly'); });
-                    // Ensure the feedback is visible
-                    try { msg.scrollIntoView({ behavior: 'smooth', block: 'start' }); } catch(e) {}
-                });
-            }
-
-            // Testimonials rendering (from Netlify Function API)
-            const TESTIMONIALS_API = '/.netlify/functions/testimonials';
-            async function loadTestimonials(){
-                try {
-                    const res = await fetch(TESTIMONIALS_API);
-                    if (!res.ok) throw new Error('Failed');
-                    return await res.json();
-                } catch(e){ return []; }
-            }
-            function starRow(rating){
-                const r = Math.max(1, Math.min(5, rating||5));
-                return '★'.repeat(r) + '☆'.repeat(5-r);
-            }
-            function renderTestimonials(){
-                (async () => {
-                    const list = await loadTestimonials();
-                    const section = document.getElementById('testimonials');
-                    const grid = document.getElementById('testimonialsGrid');
-                    if(!section || !grid) return;
-                    if(!list || list.length === 0){
-                        section.classList.add('hidden');
-                        grid.innerHTML = '';
-                        return;
-                    }
-                    section.classList.remove('hidden');
-                    grid.innerHTML = '';
-                    list.forEach((t) => {
-                        const card = document.createElement('div');
-                        card.className = 'service-card bg-white dark:bg-gray-800';
-                        card.setAttribute('data-aos','fade-up');
-                        card.innerHTML = `
-                            <div class="flex items-center mb-4">
-                                <div class="w-12 h-12 rounded-full bg-green-100 dark:bg-green-900/30 flex items-center justify-center mr-4">
-                                    <i data-feather="smile" class="w-6 h-6 text-green-600 dark:text-green-400"></i>
-                                </div>
-                                <div>
-                                    <div class="font-semibold">${t.name || 'Anonymous'}</div>
-                                    ${t.location ? `<div class=\"text-sm text-gray-500\">${t.location}</div>` : ''}
-                                </div>
-                            </div>
-                            <div class="text-yellow-500 text-sm mb-3">${starRow(t.rating)}</div>
-                            <p class="text-gray-700 dark:text-gray-300 whitespace-pre-line">${t.message || ''}</p>
-                        `;
-                        grid.appendChild(card);
-                    });
-                    // Re-run feather icons for dynamically added elements
-                    feather.replace();
-                })();
-            }
-
-            // Initial render on load
-            renderTestimonials();
-
-            // Parallax effects for elements with [data-parallax]
-            const parallaxEls = Array.from(document.querySelectorAll('[data-parallax]'));
-            function applyParallax(){
-                const scrollY = window.scrollY || window.pageYOffset;
-                parallaxEls.forEach(el => {
-                    const speed = parseFloat(el.getAttribute('data-speed')) || 0.1;
-                    el.style.transform = `translate3d(0, ${scrollY * speed}px, 0)`;
-                });
-            }
-            applyParallax();
-            window.addEventListener('scroll', applyParallax, { passive: true });
-            // Subtle mouse parallax for hero decorations
-            const hero = document.querySelector('.hero');
-            if (hero) {
-                hero.addEventListener('mousemove', (e) => {
-                    const rect = hero.getBoundingClientRect();
-                    const cx = (e.clientX - rect.left) / rect.width - 0.5;
-                    const cy = (e.clientY - rect.top) / rect.height - 0.5;
-                    parallaxEls.forEach(el => {
-                        const speed = parseFloat(el.getAttribute('data-speed')) || 0.1;
-                        const tx = cx * 20 * speed;
-                        const ty = cy * 20 * speed;
-                        el.style.transform = `translate3d(${tx}px, ${ty + (window.scrollY * speed)}px, 0)`;
-                    });
-                });
-            }
-
-            // Confetti burst (CSS-based, lightweight)
-            function confettiBurst(){
-                const colors = ['#22c55e','#16a34a','#84cc16','#a3e635','#facc15'];
-                const container = document.createElement('div');
-                container.style.position = 'fixed';
-                container.style.inset = '0';
-                container.style.pointerEvents = 'none';
-                container.style.zIndex = '1000';
-                document.body.appendChild(container);
-                const count = 36;
-                for (let i=0;i<count;i++){
-                    const p = document.createElement('div');
-                    const size = 6 + Math.random()*8;
-                    p.style.position = 'absolute';
-                    p.style.left = '50%';
-                    p.style.top = '25%';
-                    p.style.width = size+'px';
-                    p.style.height = size+'px';
-                    p.style.background = colors[i % colors.length];
-                    p.style.borderRadius = '1px';
-                    p.style.opacity = '0.9';
-                    p.style.transform = 'translate(-50%, -50%)';
-                    const dx = (Math.random()-0.5) * 400;
-                    const dy = 150 + Math.random()*300;
-                    const rot = (Math.random()*720-360);
-                    const dur = 700 + Math.random()*600;
-                    p.animate([
-                        { transform: 'translate(-50%, -50%) rotate(0deg)' },
-                        { transform: `translate(${dx}px, ${dy}px) rotate(${rot}deg)` }
-                    ], { duration: dur, easing: 'cubic-bezier(.2,.7,.2,1)', fill: 'forwards' });
-                    container.appendChild(p);
-                }
-                setTimeout(()=>{ container.remove(); }, 1400);
-            }
-
-            // Count-up animation for stats
-            const counters = Array.from(document.querySelectorAll('.count-up'));
-            if (counters.length){
-                const obs = new IntersectionObserver((entries, observer)=>{
-                    entries.forEach(entry=>{
-                        if(entry.isIntersecting){
-                            const el = entry.target;
-                            const target = parseInt(el.getAttribute('data-count'), 10) || 0;
-                            const duration = 1200;
-                            const startTime = performance.now();
-                            function tick(t){
-                                const p = Math.min(1, (t - startTime)/duration);
-                                const val = Math.floor(target * (1 - Math.pow(1-p, 3))); // ease-out cubic
-                                el.textContent = String(val);
-                                if (p < 1) requestAnimationFrame(tick);
-                            }
-                            requestAnimationFrame(tick);
-                            observer.unobserve(el);
-                        }
-                    });
-                }, { threshold: 0.4 });
-                counters.forEach(el=>obs.observe(el));
-            }
-
-            // Tilt effect for service cards
-            const cards = Array.from(document.querySelectorAll('.service-card'));
-            cards.forEach(card => {
-                card.addEventListener('mousemove', (e) => {
-                    const rect = card.getBoundingClientRect();
-                    const x = (e.clientX - rect.left) / rect.width - 0.5;
-                    const y = (e.clientY - rect.top) / rect.height - 0.5;
-                    card.style.transform = `rotateX(${ -y * 6 }deg) rotateY(${ x * 6 }deg) translateZ(0)`;
-                });
-                card.addEventListener('mouseleave', () => {
-                    card.style.transform = '';
-                });
-            });
-
-            // Back-to-top button
-            (function(){
-                const btn = document.createElement('button');
-                btn.setAttribute('aria-label','Back to top');
-                btn.className = 'fixed bottom-6 right-6 z-50 hidden md:flex items-center justify-center w-11 h-11 rounded-full bg-green-600 text-white shadow-lg hover:bg-green-700 transition';
-                btn.innerHTML = '<svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="18 15 12 9 6 15"></polyline></svg>';
-                document.body.appendChild(btn);
-                btn.addEventListener('click', ()=> window.scrollTo({ top: 0, behavior: 'smooth' }));
-                window.addEventListener('scroll', ()=>{
-                    const show = window.scrollY > 400;
-                    btn.classList.toggle('hidden', !show);
-                }, { passive: true });
-            })();
-        });
     </script>
+    
+    <!-- Back to Top Button -->
+    <button id="back-to-top" aria-label="Back to top"
+            class="hidden fixed bottom-6 right-6 z-50 p-3 rounded-full bg-green-600 text-white shadow-lg hover:bg-green-700 transition duration-200 transform"
+            style="opacity:0; transform: translateY(8px) scale(0.95);">
+        <i data-feather="arrow-up" class="w-5 h-5"></i>
+    </button>
 </body>
 </html>
