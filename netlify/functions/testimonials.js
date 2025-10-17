@@ -39,21 +39,30 @@ function writeListToLocal(list) {
 }
 
 function getIO() {
-  // Prefer Blobs when available; otherwise local file fallback
-  try {
-    const store = getStore({ name: STORE_NAME });
-    return {
-      mode: 'blobs',
-      read: () => readListFromBlobs(store),
-      write: (list) => writeListToBlobs(store, list),
-    };
-  } catch (e) {
-    return {
-      mode: 'local',
-      read: () => Promise.resolve(readListFromLocal()),
-      write: (list) => Promise.resolve(writeListToLocal(list)),
-    };
+  // Check if we're in Netlify environment
+  const isNetlify = process.env.NETLIFY === 'true' || process.env.NETLIFY_DEV === 'true';
+  
+  if (isNetlify) {
+    try {
+      // Use Netlify Blobs in production
+      const store = getStore(STORE_NAME);
+      return {
+        mode: 'blobs',
+        read: () => readListFromBlobs(store),
+        write: (list) => writeListToBlobs(store, list),
+      };
+    } catch (error) {
+      console.error('Failed to initialize Netlify Blobs:', error);
+      throw new Error('Netlify Blobs not available. Please enable Blobs in your Netlify site settings.');
+    }
   }
+  
+  // Local development: use file system
+  return {
+    mode: 'local',
+    read: () => Promise.resolve(readListFromLocal()),
+    write: (list) => Promise.resolve(writeListToLocal(list)),
+  };
 }
 
 function parseCookies(header) {

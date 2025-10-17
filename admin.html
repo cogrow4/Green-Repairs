@@ -237,7 +237,9 @@
               alert('Session expired. Please log in again.');
               showLogin();
             } else {
-              alert(`Error: ${errorData.error || 'Failed to add testimonial'}`);
+              const errorMsg = errorData.details || errorData.error || 'Failed to add testimonial';
+              alert(`Error: ${errorMsg}\n\nTip: If you see "Netlify Blobs not available", please enable Blobs in your Netlify site settings under Site configuration → Environment variables.`);
+              console.error('Full error:', errorData);
             }
             return; 
           }
@@ -292,7 +294,9 @@
               alert('Session expired. Please log in again.');
               showLogin();
             } else {
-              alert(`Error: ${errorData.error || 'Failed to update stats'}`);
+              const errorMsg = errorData.details || errorData.error || 'Failed to update stats';
+              alert(`Error: ${errorMsg}\n\nTip: If you see "Netlify Blobs not available", please enable Blobs in your Netlify site settings.`);
+              console.error('Full error:', errorData);
             }
             return;
           }

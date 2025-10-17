@@ -39,6 +39,19 @@
 4. Optionally add (if you want a custom secret):
    - `ADMIN_SECRET`: Your JWT secret key
 
+#### Enable Netlify Blobs (Required for Data Storage)
+
+The admin panel uses **Netlify Blobs** to store testimonials and site statistics. Blobs is automatically available on all Netlify sites, but if you encounter errors:
+
+1. Ensure you're on a paid plan or Blobs is enabled in your site settings
+2. Blobs are included in:
+   - **Pro plans** and higher (with generous limits)
+   - **Starter plans** may have limited access
+3. If you see "Netlify Blobs not available" errors:
+   - Check **Site settings** → **Build & deploy** → **Environment**
+   - Verify that `NETLIFY=true` is set (should be automatic)
+   - Redeploy your site after any configuration changes
+
 ## Admin Panel Features
 
 ### Site Statistics Management
