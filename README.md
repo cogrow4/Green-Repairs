@@ -300,14 +300,16 @@ This project is licensed under the **Custom Non-Commercial License (NCL)** - see
 ### License Summary
 
 ✅ **You CAN:**
-- Use the code for personal projects
+- Use the code for your business website (repair shop, restaurant, etc.)
+- Use for personal projects and portfolios
 - Modify and adapt the code
-- Share and distribute the code
+- Share and distribute the code (for free)
 - Use for educational purposes
+- Make money from your business that uses this code
 
 ❌ **You CANNOT:**
-- Sell this code or derivatives
-- Use for commercial purposes without permission
+- Sell this code or derivatives (on marketplaces, etc.)
+- Charge money for the code itself
 - Remove copyright notices
 - Distribute without sharing the source code
 

@@ -4,7 +4,7 @@
 
 ## Copyright Notice
 
-Copyright © 2025 **coeng24** (https://github.com/cogrow4)
+Copyright © 2025 **Coen Greenleaf** (https://github.com/cogrow4)
 
 All rights reserved under the terms of this license.
 
@@ -20,19 +20,28 @@ Permission is hereby granted, **free of charge**, to any person obtaining a copy
 
 ### ✅ PERMISSIONS (You MAY)
 
-1. **Use** - Use the Software for personal, educational, or non-commercial purposes
+1. **Use** - Use the Software for any purpose, including:
+   - Personal projects and portfolios
+   - Educational purposes and learning
+   - Business websites (e.g., using this for your repair shop, restaurant, or company site)
+   - Non-profit organizations
+   - Commercial ventures that use the Software as their website
 2. **Modify** - Modify, adapt, and create derivative works based on the Software
-3. **Share** - Distribute copies of the original or modified Software
+3. **Share** - Distribute copies of the original or modified Software (for free)
 4. **Study** - Study how the Software works and learn from it
 5. **Collaborate** - Work with others on projects using this Software
 
 ### ❌ RESTRICTIONS (You MAY NOT)
 
-1. **Commercial Use** - You may **NOT** use the Software or any derivative works for commercial purposes, including but not limited to:
-   - Selling the Software or derivative works
-   - Offering the Software as part of a paid service
-   - Using the Software in a product or service that generates revenue
-   - Charging money for hosting, distributing, or providing access to the Software
+1. **Selling the Code** - You may **NOT** sell or distribute the Software or derivative works for money, including but not limited to:
+   - Selling the Software as a product
+   - Selling modified versions or themes based on this Software
+   - Charging money for access to the code
+   - Selling licenses to use the Software
+   - Offering the Software as part of a paid template marketplace
+   - Charging for distribution, hosting, or providing copies of the Software
+
+   **Note**: You MAY use this Software for your business website (e.g., a repair shop using this code for their company site). You just cannot sell or charge money for the code itself.
 
 2. **Proprietary Derivatives** - You may **NOT**:
    - Create proprietary (closed-source) versions of the Software
@@ -65,13 +74,19 @@ Permission is hereby granted, **free of charge**, to any person obtaining a copy
 
 ---
 
-## Commercial Use Exception
+## Selling the Code Exception
 
-If you wish to use this Software for commercial purposes, you must:
+**Using the Software for your business is FREE and permitted!** You only need permission if you want to sell the code itself.
+
+If you wish to **sell or commercially distribute the code** (not just use it), you must:
 
 1. Contact the copyright holder (**coeng24**) to request permission
 2. Obtain explicit written authorization
-3. Negotiate terms for commercial use
+3. Negotiate terms for selling/distributing the code
+
+**Examples:**
+- ✅ **FREE to use**: Using this for your repair shop website - No permission needed!
+- ❌ **Need permission**: Selling this as a template on ThemeForest - Contact required
 
 Contact: Via GitHub at https://github.com/cogrow4
 
@@ -137,10 +152,11 @@ This license constitutes the entire agreement between the parties concerning the
 
 ## Interpretation
 
-1. **Non-Commercial** means not primarily intended for or directed towards commercial advantage or monetary compensation
-2. **Derivative Works** includes any work based upon or derived from the original Software
-3. **Distribution** means making the Software available to third parties
-4. **Source Code** means the preferred form of the Software for making modifications
+1. **Selling the Code** means charging money for the Software itself, not using it for your business
+2. **Using for Business** means deploying the Software as your company's website (this is allowed)
+3. **Derivative Works** includes any work based upon or derived from the original Software
+4. **Distribution** means making the Software available to third parties
+5. **Source Code** means the preferred form of the Software for making modifications
 
 ---
 
@@ -166,9 +182,23 @@ For questions about this license, commercial use requests, or other inquiries:
 
 ### In Simple Terms:
 
-✅ **YES** - Use it, learn from it, modify it, share it (for free)  
-❌ **NO** - Don't sell it, don't make money from it  
+✅ **YES** - Use it for your business, learn from it, modify it, share it (for free)  
+❌ **NO** - Don't sell the code itself, don't charge for the code  
 📜 **MUST** - Credit me (coeng24), share changes with same license, keep it open source
+
+### Crystal Clear Examples:
+
+**✅ ALLOWED:**
+- Use this code for your repair shop website
+- Use it for your restaurant, portfolio, or company site  
+- Modify it and use the modified version for your business
+- Make money from your business that uses this website
+
+**❌ NOT ALLOWED:**
+- Sell this code on ThemeForest or template marketplaces
+- Charge people money to download or access the code
+- Create a paid "pro" version of this code
+- Sell licenses or subscriptions to use the code
 
 ---
 
