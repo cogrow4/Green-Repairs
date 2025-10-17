@@ -38,26 +38,44 @@ function writeListToLocal(list) {
   fs.writeFileSync(LOCAL_FILE, JSON.stringify(list, null, 2), 'utf8');
 }
 
-function getIO() {
-  // Check if we're in Netlify environment
+async function getIO() {
+  // Check if we're in Netlify environment with Blobs support
   const isNetlify = process.env.NETLIFY === 'true' || process.env.NETLIFY_DEV === 'true';
   
   if (isNetlify) {
     try {
-      // Use Netlify Blobs in production
+      // Try to use Netlify Blobs in production
       const store = getStore(STORE_NAME);
+      
+      // Test if Blobs is actually working by attempting a read
+      await store.get(KEY, { type: 'json' }).catch(() => null);
+      
       return {
         mode: 'blobs',
-        read: () => readListFromBlobs(store),
-        write: (list) => writeListToBlobs(store, list),
+        read: async () => {
+          try {
+            return await readListFromBlobs(store);
+          } catch (error) {
+            console.error('Blobs read failed, falling back to local:', error);
+            return readListFromLocal();
+          }
+        },
+        write: async (list) => {
+          try {
+            await writeListToBlobs(store, list);
+          } catch (error) {
+            console.error('Blobs write failed, falling back to local:', error);
+            writeListToLocal(list);
+          }
+        },
       };
     } catch (error) {
-      console.error('Failed to initialize Netlify Blobs:', error);
-      throw new Error('Netlify Blobs not available. Please enable Blobs in your Netlify site settings.');
+      console.warn('Netlify Blobs not available, using local fallback:', error.message);
+      // Fall through to local storage
     }
   }
   
-  // Local development: use file system
+  // Local development or Blobs unavailable: use file system
   return {
     mode: 'local',
     read: () => Promise.resolve(readListFromLocal()),
@@ -95,7 +113,7 @@ function isAuthed(event) {
 }
 
 exports.handler = async function (event) {
-  const io = getIO();
+  const io = await getIO();
   const origin = event.headers.origin || event.headers.Origin || '*';
   const headers = {
     'Content-Type': 'application/json',
