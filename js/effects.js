@@ -9,6 +9,8 @@ class AdvancedEffects {
         this.ctx = null;
         this.animationId = null;
         this.isInitialized = false;
+        this.reduced = this.detectReducedEffects();
+        this._mouseRAF = false;
         
         this.init();
     }
@@ -19,10 +21,22 @@ class AdvancedEffects {
         this.initParticles();
         this.startAnimation();
         this.initScrollEffects();
-        this.initMagneticElements();
-        this.initMorphingShapes();
-        this.initDynamicGradients();
+        if (!this.reduced) this.initMagneticElements();
+        if (!this.reduced) this.initMorphingShapes();
+        if (!this.reduced) this.initDynamicGradients();
         this.isInitialized = true;
+    }
+
+    detectReducedEffects() {
+        try {
+            const prefersReduced = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+            const lowCores = navigator.hardwareConcurrency && navigator.hardwareConcurrency <= 4;
+            const lowMemory = navigator.deviceMemory && navigator.deviceMemory <= 4;
+            const isMobile = /Mobi|Android/i.test(navigator.userAgent);
+            return prefersReduced || lowCores || lowMemory || isMobile;
+        } catch (e) {
+            return false;
+        }
     }
 
     createCanvas() {
@@ -37,7 +51,7 @@ class AdvancedEffects {
             height: 100%;
             pointer-events: none;
             z-index: 1;
-            opacity: 0.8;
+            opacity: ${this.reduced ? 0.4 : 0.8};
         `;
         document.body.appendChild(this.canvas);
         
@@ -51,26 +65,48 @@ class AdvancedEffects {
     }
 
     setupEventListeners() {
-        window.addEventListener('resize', () => this.resizeCanvas());
+        window.addEventListener('resize', () => this.resizeCanvas(), { passive: true });
         
         document.addEventListener('mousemove', (e) => {
             this.mousePos.x = e.clientX;
             this.mousePos.y = e.clientY;
-            this.createMouseParticles(e.clientX, e.clientY);
-        });
+            if (!this._mouseRAF) {
+                this._mouseRAF = true;
+                requestAnimationFrame(() => {
+                    this.createMouseParticles(this.mousePos.x, this.mousePos.y);
+                    this._mouseRAF = false;
+                });
+            }
+        }, { passive: true });
 
         // Touch support for mobile
         document.addEventListener('touchmove', (e) => {
             if (e.touches[0]) {
                 this.mousePos.x = e.touches[0].clientX;
                 this.mousePos.y = e.touches[0].clientY;
-                this.createMouseParticles(e.touches[0].clientX, e.touches[0].clientY);
+                if (!this._mouseRAF) {
+                    this._mouseRAF = true;
+                    requestAnimationFrame(() => {
+                        this.createMouseParticles(this.mousePos.x, this.mousePos.y);
+                        this._mouseRAF = false;
+                    });
+                }
+            }
+        }, { passive: true });
+
+        // Pause animations when tab hidden
+        document.addEventListener('visibilitychange', () => {
+            if (document.hidden) {
+                if (this.animationId) cancelAnimationFrame(this.animationId);
+            } else {
+                this.startAnimation();
             }
         });
     }
 
     initParticles() {
-        const particleCount = Math.min(150, Math.floor(window.innerWidth / 10));
+        const base = this.reduced ? 60 : 120;
+        const particleCount = Math.min(base, Math.floor(window.innerWidth / (this.reduced ? 16 : 10)));
         
         for (let i = 0; i < particleCount; i++) {
             this.particles.push({
@@ -100,7 +136,8 @@ class AdvancedEffects {
     }
 
     createMouseParticles(x, y) {
-        if (Math.random() > 0.8) {
+        const chance = this.reduced ? 0.93 : 0.8; // fewer mouse particles when reduced
+        if (Math.random() > chance) {
             this.particles.push({
                 x: x + (Math.random() - 0.5) * 20,
                 y: y + (Math.random() - 0.5) * 20,
@@ -165,8 +202,8 @@ class AdvancedEffects {
     drawParticles() {
         this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
         
-        // Draw connections between nearby particles
-        this.drawConnections();
+        // Draw connections between nearby particles (skip on reduced)
+        if (!this.reduced) this.drawConnections();
         
         // Draw particles
         this.particles.forEach(particle => {
@@ -189,8 +226,9 @@ class AdvancedEffects {
     }
 
     drawConnections() {
-        for (let i = 0; i < this.particles.length; i++) {
-            for (let j = i + 1; j < this.particles.length; j++) {
+        const step = this.reduced ? 3 : 1;
+        for (let i = 0; i < this.particles.length; i += step) {
+            for (let j = i + 1; j < this.particles.length; j += step) {
                 const p1 = this.particles[i];
                 const p2 = this.particles[j];
                 
@@ -198,7 +236,7 @@ class AdvancedEffects {
                 const dy = p1.y - p2.y;
                 const distance = Math.sqrt(dx * dx + dy * dy);
                 
-                if (distance < 120) {
+                if (distance < 100) {
                     const opacity = (120 - distance) / 120 * 0.1;
                     this.ctx.strokeStyle = `rgba(34, 197, 94, ${opacity})`;
                     this.ctx.lineWidth = 1;

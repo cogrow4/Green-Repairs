@@ -8,6 +8,7 @@ document.addEventListener('DOMContentLoaded', function() {
     initializeAnimations();
     initializeContactForm();
     initializeTestimonials();
+    initializeSiteStats();
     initializeCounters();
     initializeScrollEffects();
     initializeInteractiveElements();
@@ -27,6 +28,22 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
 });
+
+// Small helper: throttle scroll callbacks to once per animation frame
+function onScrollOptimized(callback) {
+    let ticking = false;
+    const handler = () => {
+        if (!ticking) {
+            window.requestAnimationFrame(() => {
+                callback();
+                ticking = false;
+            });
+            ticking = true;
+        }
+    };
+    window.addEventListener('scroll', handler, { passive: true });
+    return () => window.removeEventListener('scroll', handler);
+}
 
 // Theme Management
 function initializeTheme() {
@@ -114,8 +131,8 @@ function initializeNavigation() {
 
         // Initial style
         applyNavbarStyle();
-        // On scroll and theme change
-        window.addEventListener('scroll', applyNavbarStyle);
+        // On scroll (optimized) and theme change
+        onScrollOptimized(applyNavbarStyle);
         window.addEventListener('themechange', applyNavbarStyle);
     }
     
@@ -141,10 +158,10 @@ function initializeNavigation() {
 
 // Enhanced Animations
 function initializeAnimations() {
-    // Intersection Observer for scroll animations
+    // Intersection Observer for scroll animations (optimized)
     const observerOptions = {
-        threshold: 0.1,
-        rootMargin: '0px 0px -50px 0px'
+        threshold: 0.05, // Lower threshold for earlier triggering
+        rootMargin: '50px 0px -50px 0px' // Start animating before element is visible
     };
     
     const observer = new IntersectionObserver((entries) => {
@@ -303,6 +320,38 @@ function initializeTestimonials() {
     loadTestimonials();
 }
 
+// Site Stats (Devices Repaired)
+function initializeSiteStats() {
+    const heroDevicesCount = document.getElementById('heroDevicesCount');
+    const statsDevicesCount = document.getElementById('statsDevicesCount');
+    
+    async function loadSiteStats() {
+        try {
+            const response = await fetch('/.netlify/functions/site-stats');
+            if (!response.ok) throw new Error('Failed to load site stats');
+            
+            const stats = await response.json();
+            const count = stats.devicesRepaired || 50;
+            
+            // Update hero section
+            if (heroDevicesCount) {
+                heroDevicesCount.textContent = `${count}+`;
+            }
+            
+            // Update stats section with counter animation
+            if (statsDevicesCount) {
+                statsDevicesCount.dataset.count = count;
+                // The counter animation will be triggered by initializeCounters
+            }
+        } catch (error) {
+            console.log('Using default devices count');
+            // Default values are already in HTML, so no action needed
+        }
+    }
+    
+    loadSiteStats();
+}
+
 // Animated Counters
 function initializeCounters() {
     const counters = document.querySelectorAll('.count-up');
@@ -316,7 +365,7 @@ function initializeCounters() {
                 counterObserver.unobserve(counter);
             }
         });
-    }, { threshold: 0.5 });
+    }, { threshold: 0.5, rootMargin: '50px' });
     
     counters.forEach(counter => {
         counterObserver.observe(counter);
@@ -324,7 +373,7 @@ function initializeCounters() {
     
     function animateCounter(element, target) {
         let current = 0;
-        const increment = target / 50;
+        const increment = target / 40; // Reduced iterations for better performance
         const timer = setInterval(() => {
             current += increment;
             if (current >= target) {
@@ -333,23 +382,27 @@ function initializeCounters() {
             } else {
                 element.textContent = Math.floor(current);
             }
-        }, 30);
+        }, 40); // Slightly slower interval
     }
 }
 
 // Enhanced Scroll Effects
 function initializeScrollEffects() {
-    // Parallax effect for elements with data-parallax
-    window.addEventListener('scroll', () => {
+    // Optimized parallax effect for elements with data-parallax
+    const parallaxElements = document.querySelectorAll('[data-parallax]');
+    parallaxElements.forEach(element => {
+        element.style.willChange = 'transform';
+    });
+    
+    const parallaxTick = () => {
         const scrolled = window.pageYOffset;
-        const parallaxElements = document.querySelectorAll('[data-parallax]');
-        
         parallaxElements.forEach(element => {
             const speed = parseFloat(element.dataset.speed) || 0.5;
             const yPos = -(scrolled * speed);
             element.style.transform = `translate3d(0, ${yPos}px, 0)`;
         });
-    });
+    };
+    onScrollOptimized(parallaxTick);
     
     // Progress indicator
     const progressBar = document.createElement('div');
@@ -357,10 +410,12 @@ function initializeScrollEffects() {
     progressBar.style.width = '0%';
     document.body.appendChild(progressBar);
     
-    window.addEventListener('scroll', () => {
-        const scrollPercent = (window.scrollY / (document.documentElement.scrollHeight - window.innerHeight)) * 100;
+    const progressTick = () => {
+        const max = Math.max(1, document.documentElement.scrollHeight - window.innerHeight);
+        const scrollPercent = (window.scrollY / max) * 100;
         progressBar.style.width = `${Math.min(scrollPercent, 100)}%`;
-    });
+    };
+    onScrollOptimized(progressTick);
 
     // Back-to-top button behavior
     const backToTop = document.getElementById('back-to-top');
@@ -377,7 +432,7 @@ function initializeScrollEffects() {
             }
         };
         toggleBtn();
-        window.addEventListener('scroll', toggleBtn);
+        onScrollOptimized(toggleBtn);
         backToTop.addEventListener('click', () => {
             window.scrollTo({ top: 0, behavior: 'smooth' });
         });

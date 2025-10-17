@@ -64,10 +64,27 @@
 
     <!-- Admin Content -->
     <div id="adminContent" class="hidden space-y-8" data-aos="fade-up">
+      <!-- Site Stats Section -->
+      <div class="bg-white dark:bg-gray-800 rounded-2xl shadow-xl p-8">
+        <div class="flex items-center justify-between mb-6">
+          <h2 class="text-2xl font-bold">Site Statistics</h2>
+          <button id="logoutBtn" class="text-sm text-gray-500 hover:text-red-500">Logout</button>
+        </div>
+        <form id="statsForm" class="space-y-4">
+          <div>
+            <label class="block text-sm font-medium mb-2">Devices Repaired</label>
+            <input id="devicesRepaired" type="number" min="0" required class="w-full px-4 py-3 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700" placeholder="50">
+            <p class="text-xs text-gray-500 mt-1">This number will be displayed on the homepage</p>
+          </div>
+          <button class="btn btn-primary bg-green-600 hover:bg-green-700 text-white px-6 py-3 rounded-lg" type="submit">Update Stats</button>
+          <p id="statsMsg" class="text-sm text-green-600 hidden">Stats updated!</p>
+        </form>
+      </div>
+
+      <!-- Testimonials Section -->
       <div class="bg-white dark:bg-gray-800 rounded-2xl shadow-xl p-8">
         <div class="flex items-center justify-between mb-6">
           <h2 class="text-2xl font-bold">Add Testimonial</h2>
-          <button id="logoutBtn" class="text-sm text-gray-500 hover:text-red-500">Logout</button>
         </div>
         <form id="testimonialForm" class="space-y-4">
           <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
@@ -212,13 +229,84 @@
           message: document.getElementById('tMessage').value.trim(),
           rating: parseInt(document.getElementById('tRating').value, 10) || 5
         };
-        const res = await fetch(API, { method: 'POST', headers: { 'Content-Type': 'application/json' }, credentials: 'include', body: JSON.stringify(t) });
-        if(!res.ok){ alert('Not authorized or error adding testimonial'); return; }
-        (document.getElementById('saveMsg')).classList.remove('hidden');
-        setTimeout(()=> (document.getElementById('saveMsg')).classList.add('hidden'), 1500);
-        (document.getElementById('testimonialForm')).reset();
-        renderList();
+        try {
+          const res = await fetch(API, { method: 'POST', headers: { 'Content-Type': 'application/json' }, credentials: 'include', body: JSON.stringify(t) });
+          if(!res.ok){ 
+            const errorData = await res.json().catch(() => ({}));
+            if (res.status === 401) {
+              alert('Session expired. Please log in again.');
+              showLogin();
+            } else {
+              alert(`Error: ${errorData.error || 'Failed to add testimonial'}`);
+            }
+            return; 
+          }
+          (document.getElementById('saveMsg')).classList.remove('hidden');
+          setTimeout(()=> (document.getElementById('saveMsg')).classList.add('hidden'), 1500);
+          (document.getElementById('testimonialForm')).reset();
+          renderList();
+        } catch (err) {
+          alert('Network error. Please check your connection and try again.');
+          console.error('Error adding testimonial:', err);
+        }
       });
+
+      // Site Stats Management
+      const STATS_API = '/.netlify/functions/site-stats';
+      const statsForm = document.getElementById('statsForm');
+      const devicesRepairedInput = document.getElementById('devicesRepaired');
+      const statsMsg = document.getElementById('statsMsg');
+
+      async function loadStats() {
+        try {
+          const res = await fetch(STATS_API);
+          if (res.ok) {
+            const stats = await res.json();
+            devicesRepairedInput.value = stats.devicesRepaired || 50;
+          }
+        } catch (err) {
+          console.error('Error loading stats:', err);
+        }
+      }
+
+      statsForm.addEventListener('submit', async (e) => {
+        e.preventDefault();
+        const devicesRepaired = parseInt(devicesRepairedInput.value, 10);
+        
+        if (isNaN(devicesRepaired) || devicesRepaired < 0) {
+          alert('Please enter a valid number');
+          return;
+        }
+
+        try {
+          const res = await fetch(STATS_API, {
+            method: 'PUT',
+            headers: { 'Content-Type': 'application/json' },
+            credentials: 'include',
+            body: JSON.stringify({ devicesRepaired })
+          });
+
+          if (!res.ok) {
+            const errorData = await res.json().catch(() => ({}));
+            if (res.status === 401) {
+              alert('Session expired. Please log in again.');
+              showLogin();
+            } else {
+              alert(`Error: ${errorData.error || 'Failed to update stats'}`);
+            }
+            return;
+          }
+
+          statsMsg.classList.remove('hidden');
+          setTimeout(() => statsMsg.classList.add('hidden'), 1500);
+        } catch (err) {
+          alert('Network error. Please check your connection and try again.');
+          console.error('Error updating stats:', err);
+        }
+      });
+
+      // Load stats when admin content is shown
+      loadStats();
     });
   </script>
 </body>

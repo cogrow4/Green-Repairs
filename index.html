@@ -7,7 +7,9 @@
     <link rel="icon" type="image/svg+xml" href="/static/favicon.svg">
     <link rel="alternate icon" type="image/x-icon" href="/static/favicon.ico">
     
-    <!-- Fonts -->
+    <!-- Fonts with optimized loading -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     
@@ -77,6 +79,12 @@
       }
       @keyframes float { 0%, 100% { transform: translateY(0) } 50% { transform: translateY(-10px) } }
       .animate-float { animation: float 6s ease-in-out infinite; }
+      
+      /* Performance optimizations */
+      * { -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale; }
+      img { content-visibility: auto; }
+      .service-card { contain: layout style paint; }
+      html { scroll-behavior: smooth; }
     </style>
     
     <!-- Custom CSS removed to prevent overriding Tailwind component styles -->
@@ -178,7 +186,7 @@
                 <!-- Floating stats -->
                 <div class="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-2xl mx-auto">
                     <div class="bg-white/10 backdrop-blur-sm rounded-2xl p-6 border border-white/20 animate-float" style="animation-delay: 0.5s;">
-                        <div class="text-3xl font-bold text-green-300 mb-2">50+</div>
+                        <div class="text-3xl font-bold text-green-300 mb-2" id="heroDevicesCount">50+</div>
                         <div class="text-sm text-green-100">Devices Repaired</div>
                     </div>
                     <div class="bg-white/10 backdrop-blur-sm rounded-2xl p-6 border border-white/20 animate-float" style="animation-delay: 1s;">
@@ -349,6 +357,23 @@
                         </a>
                     </div>
                 </div>
+
+                <!-- Service 7: Linux Installation & Migration -->
+                <div class="service-card group" data-aos="fade-up" data-aos-delay="700">
+                    <div class="w-16 h-16 rounded-2xl bg-gradient-to-br from-green-100 to-emerald-100 dark:from-green-900/30 dark:to-emerald-900/30 flex items-center justify-center mb-6 group-hover:scale-110 group-hover:rotate-3 transition-all duration-300 shadow-lg group-hover:shadow-green-200 dark:group-hover:shadow-green-900/50">
+                        <i data-feather="terminal" class="w-8 h-8 text-green-600 dark:text-green-400 group-hover:text-green-700 dark:group-hover:text-green-300 transition-colors duration-300"></i>
+                    </div>
+                    <h3 class="text-2xl font-bold mb-4 group-hover:text-green-600 dark:group-hover:text-green-400 transition-colors duration-300">Linux Installation & Migration</h3>
+                    <p class="text-gray-600 dark:text-gray-300 mb-6 leading-relaxed">
+                        Breathe new life into old PCs! Switch from Windows/Mac to Linux with full installation, driver setup, data migration, essential apps, and personalized training.
+                    </p>
+                    <div class="flex items-center justify-between mt-6 pt-6 border-t border-gray-100 dark:border-gray-800 group-hover:border-green-200 dark:group-hover:border-green-800 transition-colors duration-300">
+                        <span class="text-green-600 dark:text-green-400 font-semibold text-lg">From $15</span>
+                        <a href="#contact" class="inline-flex items-center justify-center w-10 h-10 rounded-full bg-green-50 dark:bg-green-900/20 text-green-600 dark:text-green-400 hover:bg-green-100 dark:hover:bg-green-900/40 transition-all duration-200 group-hover:scale-110">
+                            <i data-feather="arrow-right" class="w-5 h-5"></i>
+                        </a>
+                    </div>
+                </div>
             </div>
             
             <div class="mt-16 text-center" data-aos="fade-up">
@@ -424,7 +449,7 @@
                     
                     <div class="grid grid-cols-3 gap-4 mt-6">
                         <div class="bg-white dark:bg-gray-700 p-4 rounded-xl shadow-md text-center">
-                            <div class="text-3xl font-bold text-green-600 dark:text-green-400"><span class="count-up" data-count="50">0</span>+</div>
+                            <div class="text-3xl font-bold text-green-600 dark:text-green-400"><span class="count-up" id="statsDevicesCount" data-count="50">0</span>+</div>
                             <div class="text-sm text-gray-600 dark:text-gray-300">Devices Repaired</div>
                         </div>
                         <div class="bg-white dark:bg-gray-700 p-4 rounded-xl shadow-md text-center">
