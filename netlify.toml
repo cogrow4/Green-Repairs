@@ -21,4 +21,10 @@
     Referrer-Policy = "strict-origin-when-cross-origin"
     Content-Security-Policy = "default-src 'self'; script-src 'self' 'unsafe-inline' https://cdn.jsdelivr.net https://unpkg.com https://cdn.tailwindcss.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; img-src 'self' data: https:; font-src 'self' https://fonts.gstatic.com; connect-src 'self' https://api.mailgun.net; frame-ancestors 'none';"
     Strict-Transport-Security = "max-age=31536000; includeSubDomains; preload"
+# Enable Netlify Blobs for persistent storage
+[[netlify_blobs]]
+  name = "testimonials"
+
+[[netlify_blobs]]
+  name = "site-stats"
     Permissions-Policy = "geolocation=(), microphone=(), camera=()"
