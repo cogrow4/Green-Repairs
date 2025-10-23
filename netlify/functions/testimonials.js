@@ -11,8 +11,8 @@ const path = require('path');
 const STORE_NAME = 'testimonials';
 const KEY = 'data.json';
 
-// Local fallback paths for dev when Blobs isn't configured
-const LOCAL_DIR = path.join(process.cwd(), '.netlify', 'blobs-dev');
+// Local fallback paths for dev when Blobs isn't configured (use /tmp for Netlify functions)
+const LOCAL_DIR = '/tmp/netlify-blobs';
 const LOCAL_FILE = path.join(LOCAL_DIR, 'testimonials.json');
 
 async function readListFromBlobs(store) {
