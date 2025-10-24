@@ -17,7 +17,7 @@ async function readStats() {
   try {
     const store = getStore({
       name: STORE_NAME,
-      siteID: process.env.SITE_ID,
+      siteID: 'bd21e028-ae93-4bbf-9ffb-bcfbbbc0f8d1',
       token: process.env.NETLIFY_BLOBS_TOKEN
     });
     const data = await store.get(KEY, { type: 'json' });
@@ -32,7 +32,7 @@ async function writeStats(stats) {
   try {
     const store = getStore({
       name: STORE_NAME,
-      siteID: process.env.SITE_ID,
+      siteID: 'bd21e028-ae93-4bbf-9ffb-bcfbbbc0f8d1',
       token: process.env.NETLIFY_BLOBS_TOKEN
     });
     await store.set(KEY, JSON.stringify(stats), { contentType: 'application/json' });
