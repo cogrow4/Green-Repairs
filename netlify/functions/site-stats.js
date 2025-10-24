@@ -17,7 +17,7 @@ async function readStats() {
   try {
     const store = getStore({
       name: STORE_NAME,
-      siteID: 'bd21e028-ae93-4bbf-9ffb-bcfbbbc0f8d1',
+      siteID: process.env.NETLIFY_SITE_ID || 'bd21e028-ae93-4bbf-9ffb-bcfbbbc0f8d1',
       token: process.env.NETLIFY_BLOBS_TOKEN
     });
     const data = await store.get(KEY, { type: 'json' });
@@ -32,10 +32,10 @@ async function writeStats(stats) {
   try {
     const store = getStore({
       name: STORE_NAME,
-      siteID: 'bd21e028-ae93-4bbf-9ffb-bcfbbbc0f8d1',
+      siteID: process.env.NETLIFY_SITE_ID || 'bd21e028-ae93-4bbf-9ffb-bcfbbbc0f8d1',
       token: process.env.NETLIFY_BLOBS_TOKEN
     });
-    await store.set(KEY, JSON.stringify(stats), { contentType: 'application/json' });
+    await store.setJSON(KEY, stats);
   } catch (error) {
     console.error('Error writing stats to Blobs:', error);
     throw error;

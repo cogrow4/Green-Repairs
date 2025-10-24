@@ -13,7 +13,7 @@ async function readTestimonials() {
   try {
     const store = getStore({
       name: STORE_NAME,
-      siteID: 'bd21e028-ae93-4bbf-9ffb-bcfbbbc0f8d1',
+      siteID: process.env.NETLIFY_SITE_ID || 'bd21e028-ae93-4bbf-9ffb-bcfbbbc0f8d1',
       token: process.env.NETLIFY_BLOBS_TOKEN
     });
     const data = await store.get(KEY, { type: 'json' });
@@ -28,10 +28,10 @@ async function writeTestimonials(testimonials) {
   try {
     const store = getStore({
       name: STORE_NAME,
-      siteID: 'bd21e028-ae93-4bbf-9ffb-bcfbbbc0f8d1',
+      siteID: process.env.NETLIFY_SITE_ID || 'bd21e028-ae93-4bbf-9ffb-bcfbbbc0f8d1',
       token: process.env.NETLIFY_BLOBS_TOKEN
     });
-    await store.set(KEY, JSON.stringify(testimonials), { contentType: 'application/json' });
+    await store.setJSON(KEY, testimonials);
   } catch (error) {
     console.error('Error writing testimonials to Blobs:', error);
     throw error;
