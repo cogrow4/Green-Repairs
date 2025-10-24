@@ -3,36 +3,32 @@
 // - GET: return current stats { devicesRepaired }
 // - PUT: update stats (admin only) { devicesRepaired }
 
-const fs = require('fs');
-const path = require('path');
+const { getStore } = require('@netlify/blobs');
 
-// Default stats
+const STORE_NAME = 'site-stats';
+const KEY = 'data.json';
+
 const DEFAULT_STATS = {
   devicesRepaired: 50
 };
 
-// Use /tmp for persistent storage in Netlify functions
-const LOCAL_DIR = '/tmp/netlify-blobs';
-const LOCAL_FILE = path.join(LOCAL_DIR, 'site-stats.json');
-
-function readStats() {
+async function readStats() {
   try {
-    if (!fs.existsSync(LOCAL_FILE)) return DEFAULT_STATS;
-    const raw = fs.readFileSync(LOCAL_FILE, 'utf8');
-    const data = JSON.parse(raw || '{}');
-    return { ...DEFAULT_STATS, ...data };
+    const store = getStore(STORE_NAME);
+    const data = await store.get(KEY, { type: 'json' });
+    return data ? { ...DEFAULT_STATS, ...data } : DEFAULT_STATS;
   } catch (error) {
-    console.error('Error reading stats:', error);
+    console.error('Error reading stats from Blobs:', error);
     return DEFAULT_STATS;
   }
 }
 
-function writeStats(stats) {
+async function writeStats(stats) {
   try {
-    if (!fs.existsSync(LOCAL_DIR)) fs.mkdirSync(LOCAL_DIR, { recursive: true });
-    fs.writeFileSync(LOCAL_FILE, JSON.stringify(stats, null, 2), 'utf8');
+    const store = getStore(STORE_NAME);
+    await store.setJSON(KEY, stats);
   } catch (error) {
-    console.error('Error writing stats:', error);
+    console.error('Error writing stats to Blobs:', error);
     throw error;
   }
 }
@@ -82,7 +78,7 @@ exports.handler = async function (event) {
 
   try {
     if (event.httpMethod === 'GET') {
-      const stats = readStats();
+      const stats = await readStats();
       return { statusCode: 200, headers, body: JSON.stringify(stats) };
     }
 
@@ -103,7 +99,7 @@ exports.handler = async function (event) {
       }
 
       const stats = { devicesRepaired: count };
-      writeStats(stats);
+      await writeStats(stats);
       return { statusCode: 200, headers, body: JSON.stringify(stats) };
     }
 
