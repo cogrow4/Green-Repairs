@@ -4,31 +4,28 @@
 // - POST: add a testimonial { name, location, message, rating }
 // - DELETE: remove testimonial { id }
 
-const fs = require('fs');
-const path = require('path');
+const { getStore } = require('@netlify/blobs');
 
-// Use /tmp for persistent storage in Netlify functions
-const LOCAL_DIR = '/tmp/netlify-blobs';
-const LOCAL_FILE = path.join(LOCAL_DIR, 'testimonials.json');
+const STORE_NAME = 'testimonials';
+const KEY = 'data.json';
 
-function readTestimonials() {
+async function readTestimonials() {
   try {
-    if (!fs.existsSync(LOCAL_FILE)) return [];
-    const raw = fs.readFileSync(LOCAL_FILE, 'utf8');
-    const data = JSON.parse(raw || '[]');
+    const store = getStore(STORE_NAME);
+    const data = await store.get(KEY, { type: 'json' });
     return Array.isArray(data) ? data : [];
   } catch (error) {
-    console.error('Error reading testimonials:', error);
+    console.error('Error reading testimonials from Blobs:', error);
     return [];
   }
 }
 
-function writeTestimonials(testimonials) {
+async function writeTestimonials(testimonials) {
   try {
-    if (!fs.existsSync(LOCAL_DIR)) fs.mkdirSync(LOCAL_DIR, { recursive: true });
-    fs.writeFileSync(LOCAL_FILE, JSON.stringify(testimonials, null, 2), 'utf8');
+    const store = getStore(STORE_NAME);
+    await store.setJSON(KEY, testimonials);
   } catch (error) {
-    console.error('Error writing testimonials:', error);
+    console.error('Error writing testimonials to Blobs:', error);
     throw error;
   }
 }
@@ -78,7 +75,7 @@ exports.handler = async function (event) {
 
   try {
     if (event.httpMethod === 'GET') {
-      const list = readTestimonials();
+      const list = await readTestimonials();
       return { statusCode: 200, headers, body: JSON.stringify(list) };
     }
 
@@ -99,9 +96,9 @@ exports.handler = async function (event) {
         rating: Math.max(1, Math.min(5, parseInt(rating || 5, 10))),
         createdAt: Date.now()
       };
-      const list = readTestimonials();
+      const list = await readTestimonials();
       list.unshift(item);
-      writeTestimonials(list);
+      await writeTestimonials(list);
       return { statusCode: 201, headers, body: JSON.stringify(item) };
     }
 
@@ -114,9 +111,9 @@ exports.handler = async function (event) {
       if (!id) {
         return { statusCode: 400, headers, body: JSON.stringify({ error: 'id is required' }) };
       }
-      const list = readTestimonials();
+      const list = await readTestimonials();
       const next = list.filter(t => t.id !== id);
-      writeTestimonials(next);
+      await writeTestimonials(next);
       return { statusCode: 200, headers, body: JSON.stringify({ ok: true }) };
     }
 
