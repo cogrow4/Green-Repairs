@@ -10,8 +10,12 @@ const STORE_NAME = 'testimonials';
 const KEY = 'data.json';
 
 async function readTestimonials() {
-  const store = getStore(STORE_NAME);
   try {
+    const store = getStore({
+      name: STORE_NAME,
+      siteID: process.env.SITE_ID,
+      token: process.env.NETLIFY_BLOBS_TOKEN
+    });
     const data = await store.get(KEY, { type: 'json' });
     return Array.isArray(data) ? data : [];
   } catch (error) {
@@ -21,8 +25,12 @@ async function readTestimonials() {
 }
 
 async function writeTestimonials(testimonials) {
-  const store = getStore(STORE_NAME);
   try {
+    const store = getStore({
+      name: STORE_NAME,
+      siteID: process.env.SITE_ID,
+      token: process.env.NETLIFY_BLOBS_TOKEN
+    });
     await store.set(KEY, JSON.stringify(testimonials), { contentType: 'application/json' });
   } catch (error) {
     console.error('Error writing testimonials to Blobs:', error);

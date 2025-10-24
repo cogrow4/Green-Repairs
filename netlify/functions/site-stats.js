@@ -14,8 +14,12 @@ const DEFAULT_STATS = {
 };
 
 async function readStats() {
-  const store = getStore(STORE_NAME);
   try {
+    const store = getStore({
+      name: STORE_NAME,
+      siteID: process.env.SITE_ID,
+      token: process.env.NETLIFY_BLOBS_TOKEN
+    });
     const data = await store.get(KEY, { type: 'json' });
     return data && typeof data === 'object' ? { ...DEFAULT_STATS, ...data } : DEFAULT_STATS;
   } catch (error) {
@@ -25,8 +29,12 @@ async function readStats() {
 }
 
 async function writeStats(stats) {
-  const store = getStore(STORE_NAME);
   try {
+    const store = getStore({
+      name: STORE_NAME,
+      siteID: process.env.SITE_ID,
+      token: process.env.NETLIFY_BLOBS_TOKEN
+    });
     await store.set(KEY, JSON.stringify(stats), { contentType: 'application/json' });
   } catch (error) {
     console.error('Error writing stats to Blobs:', error);
