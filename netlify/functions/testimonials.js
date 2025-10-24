@@ -4,36 +4,31 @@
 // - POST: add a testimonial { name, location, message, rating }
 // - DELETE: remove testimonial { id }
 
-const { getStore } = require('@netlify/blobs');
+const fs = require('fs');
+const path = require('path');
 
-const STORE_NAME = 'testimonials';
-const KEY = 'data.json';
+// Use /tmp for persistent storage in Netlify functions
+const LOCAL_DIR = '/tmp/netlify-blobs';
+const LOCAL_FILE = path.join(LOCAL_DIR, 'testimonials.json');
 
-async function readTestimonials() {
+function readTestimonials() {
   try {
-    const store = getStore({
-      name: STORE_NAME,
-      siteID: process.env.NETLIFY_SITE_ID || 'bd21e028-ae93-4bbf-9ffb-bcfbbbc0f8d1',
-      token: process.env.NETLIFY_BLOBS_TOKEN
-    });
-    const data = await store.get(KEY, { type: 'json' });
+    if (!fs.existsSync(LOCAL_FILE)) return [];
+    const raw = fs.readFileSync(LOCAL_FILE, 'utf8');
+    const data = JSON.parse(raw || '[]');
     return Array.isArray(data) ? data : [];
   } catch (error) {
-    console.error('Error reading testimonials from Blobs:', error);
+    console.error('Error reading testimonials:', error);
     return [];
   }
 }
 
-async function writeTestimonials(testimonials) {
+function writeTestimonials(testimonials) {
   try {
-    const store = getStore({
-      name: STORE_NAME,
-      siteID: process.env.NETLIFY_SITE_ID || 'bd21e028-ae93-4bbf-9ffb-bcfbbbc0f8d1',
-      token: process.env.NETLIFY_BLOBS_TOKEN
-    });
-    await store.setJSON(KEY, testimonials);
+    if (!fs.existsSync(LOCAL_DIR)) fs.mkdirSync(LOCAL_DIR, { recursive: true });
+    fs.writeFileSync(LOCAL_FILE, JSON.stringify(testimonials, null, 2), 'utf8');
   } catch (error) {
-    console.error('Error writing testimonials to Blobs:', error);
+    console.error('Error writing testimonials:', error);
     throw error;
   }
 }
@@ -83,7 +78,7 @@ exports.handler = async function (event) {
 
   try {
     if (event.httpMethod === 'GET') {
-      const list = await readTestimonials();
+      const list = readTestimonials();
       return { statusCode: 200, headers, body: JSON.stringify(list) };
     }
 
@@ -104,9 +99,9 @@ exports.handler = async function (event) {
         rating: Math.max(1, Math.min(5, parseInt(rating || 5, 10))),
         createdAt: Date.now()
       };
-      const list = await readTestimonials();
+      const list = readTestimonials();
       list.unshift(item);
-      await writeTestimonials(list);
+      writeTestimonials(list);
       return { statusCode: 201, headers, body: JSON.stringify(item) };
     }
 
@@ -119,9 +114,9 @@ exports.handler = async function (event) {
       if (!id) {
         return { statusCode: 400, headers, body: JSON.stringify({ error: 'id is required' }) };
       }
-      const list = await readTestimonials();
+      const list = readTestimonials();
       const next = list.filter(t => t.id !== id);
-      await writeTestimonials(next);
+      writeTestimonials(next);
       return { statusCode: 200, headers, body: JSON.stringify({ ok: true }) };
     }
 

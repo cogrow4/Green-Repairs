@@ -3,41 +3,36 @@
 // - GET: return current stats { devicesRepaired }
 // - PUT: update stats (admin only) { devicesRepaired }
 
-const { getStore } = require('@netlify/blobs');
-
-const STORE_NAME = 'site-stats';
-const KEY = 'data.json';
+const fs = require('fs');
+const path = require('path');
 
 // Default stats
 const DEFAULT_STATS = {
   devicesRepaired: 50
 };
 
-async function readStats() {
+// Use /tmp for persistent storage in Netlify functions
+const LOCAL_DIR = '/tmp/netlify-blobs';
+const LOCAL_FILE = path.join(LOCAL_DIR, 'site-stats.json');
+
+function readStats() {
   try {
-    const store = getStore({
-      name: STORE_NAME,
-      siteID: process.env.NETLIFY_SITE_ID || 'bd21e028-ae93-4bbf-9ffb-bcfbbbc0f8d1',
-      token: process.env.NETLIFY_BLOBS_TOKEN
-    });
-    const data = await store.get(KEY, { type: 'json' });
-    return data && typeof data === 'object' ? { ...DEFAULT_STATS, ...data } : DEFAULT_STATS;
+    if (!fs.existsSync(LOCAL_FILE)) return DEFAULT_STATS;
+    const raw = fs.readFileSync(LOCAL_FILE, 'utf8');
+    const data = JSON.parse(raw || '{}');
+    return { ...DEFAULT_STATS, ...data };
   } catch (error) {
-    console.error('Error reading stats from Blobs:', error);
+    console.error('Error reading stats:', error);
     return DEFAULT_STATS;
   }
 }
 
-async function writeStats(stats) {
+function writeStats(stats) {
   try {
-    const store = getStore({
-      name: STORE_NAME,
-      siteID: process.env.NETLIFY_SITE_ID || 'bd21e028-ae93-4bbf-9ffb-bcfbbbc0f8d1',
-      token: process.env.NETLIFY_BLOBS_TOKEN
-    });
-    await store.setJSON(KEY, stats);
+    if (!fs.existsSync(LOCAL_DIR)) fs.mkdirSync(LOCAL_DIR, { recursive: true });
+    fs.writeFileSync(LOCAL_FILE, JSON.stringify(stats, null, 2), 'utf8');
   } catch (error) {
-    console.error('Error writing stats to Blobs:', error);
+    console.error('Error writing stats:', error);
     throw error;
   }
 }
@@ -87,7 +82,7 @@ exports.handler = async function (event) {
 
   try {
     if (event.httpMethod === 'GET') {
-      const stats = await readStats();
+      const stats = readStats();
       return { statusCode: 200, headers, body: JSON.stringify(stats) };
     }
 
@@ -108,7 +103,7 @@ exports.handler = async function (event) {
       }
 
       const stats = { devicesRepaired: count };
-      await writeStats(stats);
+      writeStats(stats);
       return { statusCode: 200, headers, body: JSON.stringify(stats) };
     }
 
