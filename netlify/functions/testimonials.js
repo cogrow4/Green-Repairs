@@ -5,82 +5,29 @@
 // - DELETE: remove testimonial { id }
 
 const { getStore } = require('@netlify/blobs');
-const fs = require('fs');
-const path = require('path');
 
 const STORE_NAME = 'testimonials';
 const KEY = 'data.json';
 
-// Local fallback paths for dev when Blobs isn't configured (use /tmp for Netlify functions)
-const LOCAL_DIR = '/tmp/netlify-blobs';
-const LOCAL_FILE = path.join(LOCAL_DIR, 'testimonials.json');
-
-async function readListFromBlobs(store) {
-  const data = await store.get(KEY, { type: 'json' });
-  return Array.isArray(data) ? data : [];
-}
-
-async function writeListToBlobs(store, list) {
-  await store.set(KEY, JSON.stringify(list), { contentType: 'application/json' });
-}
-
-function readListFromLocal() {
+async function readTestimonials() {
+  const store = getStore(STORE_NAME);
   try {
-    if (!fs.existsSync(LOCAL_FILE)) return [];
-    const raw = fs.readFileSync(LOCAL_FILE, 'utf8');
-    const data = JSON.parse(raw || '[]');
+    const data = await store.get(KEY, { type: 'json' });
     return Array.isArray(data) ? data : [];
-  } catch { return []; }
-}
-
-function writeListToLocal(list) {
-  if (!fs.existsSync(LOCAL_DIR)) fs.mkdirSync(LOCAL_DIR, { recursive: true });
-  fs.writeFileSync(LOCAL_FILE, JSON.stringify(list, null, 2), 'utf8');
-}
-
-async function getIO() {
-  // Check if we're in Netlify environment with Blobs support
-  const isNetlify = process.env.NETLIFY === 'true' || process.env.NETLIFY_DEV === 'true';
-  
-  if (isNetlify) {
-    try {
-      // Try to use Netlify Blobs in production
-      const store = getStore(STORE_NAME);
-      
-      // Test if Blobs is actually working by attempting a read
-      await store.get(KEY, { type: 'json' }).catch(() => null);
-      
-      return {
-        mode: 'blobs',
-        read: async () => {
-          try {
-            return await readListFromBlobs(store);
-          } catch (error) {
-            console.error('Blobs read failed, falling back to local:', error);
-            return readListFromLocal();
-          }
-        },
-        write: async (list) => {
-          try {
-            await writeListToBlobs(store, list);
-          } catch (error) {
-            console.error('Blobs write failed, falling back to local:', error);
-            writeListToLocal(list);
-          }
-        },
-      };
-    } catch (error) {
-      console.warn('Netlify Blobs not available, using local fallback:', error.message);
-      // Fall through to local storage
-    }
+  } catch (error) {
+    console.error('Error reading testimonials from Blobs:', error);
+    return [];
   }
-  
-  // Local development or Blobs unavailable: use file system
-  return {
-    mode: 'local',
-    read: () => Promise.resolve(readListFromLocal()),
-    write: (list) => Promise.resolve(writeListToLocal(list)),
-  };
+}
+
+async function writeTestimonials(testimonials) {
+  const store = getStore(STORE_NAME);
+  try {
+    await store.set(KEY, JSON.stringify(testimonials), { contentType: 'application/json' });
+  } catch (error) {
+    console.error('Error writing testimonials to Blobs:', error);
+    throw error;
+  }
 }
 
 function parseCookies(header) {
@@ -113,7 +60,6 @@ function isAuthed(event) {
 }
 
 exports.handler = async function (event) {
-  const io = await getIO();
   const origin = event.headers.origin || event.headers.Origin || '*';
   const headers = {
     'Content-Type': 'application/json',
@@ -129,7 +75,7 @@ exports.handler = async function (event) {
 
   try {
     if (event.httpMethod === 'GET') {
-      const list = await io.read();
+      const list = await readTestimonials();
       return { statusCode: 200, headers, body: JSON.stringify(list) };
     }
 
@@ -150,9 +96,9 @@ exports.handler = async function (event) {
         rating: Math.max(1, Math.min(5, parseInt(rating || 5, 10))),
         createdAt: Date.now()
       };
-      const list = await io.read();
+      const list = await readTestimonials();
       list.unshift(item);
-      await io.write(list);
+      await writeTestimonials(list);
       return { statusCode: 201, headers, body: JSON.stringify(item) };
     }
 
@@ -165,9 +111,9 @@ exports.handler = async function (event) {
       if (!id) {
         return { statusCode: 400, headers, body: JSON.stringify({ error: 'id is required' }) };
       }
-      const list = await io.read();
+      const list = await readTestimonials();
       const next = list.filter(t => t.id !== id);
-      await io.write(next);
+      await writeTestimonials(next);
       return { statusCode: 200, headers, body: JSON.stringify({ ok: true }) };
     }
 

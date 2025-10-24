@@ -4,87 +4,34 @@
 // - PUT: update stats (admin only) { devicesRepaired }
 
 const { getStore } = require('@netlify/blobs');
-const fs = require('fs');
-const path = require('path');
 
 const STORE_NAME = 'site-stats';
 const KEY = 'data.json';
-
-// Local fallback paths for dev when Blobs isn't configured (use /tmp for Netlify functions)
-const LOCAL_DIR = '/tmp/netlify-blobs';
-const LOCAL_FILE = path.join(LOCAL_DIR, 'site-stats.json');
 
 // Default stats
 const DEFAULT_STATS = {
   devicesRepaired: 50
 };
 
-async function readStatsFromBlobs(store) {
-  const data = await store.get(KEY, { type: 'json' });
-  return data && typeof data === 'object' ? { ...DEFAULT_STATS, ...data } : DEFAULT_STATS;
-}
-
-async function writeStatsToBlobs(store, stats) {
-  await store.set(KEY, JSON.stringify(stats), { contentType: 'application/json' });
-}
-
-function readStatsFromLocal() {
+async function readStats() {
+  const store = getStore(STORE_NAME);
   try {
-    if (!fs.existsSync(LOCAL_FILE)) return DEFAULT_STATS;
-    const raw = fs.readFileSync(LOCAL_FILE, 'utf8');
-    const data = JSON.parse(raw || '{}');
-    return { ...DEFAULT_STATS, ...data };
-  } catch { return DEFAULT_STATS; }
-}
-
-function writeStatsToLocal(stats) {
-  if (!fs.existsSync(LOCAL_DIR)) fs.mkdirSync(LOCAL_DIR, { recursive: true });
-  fs.writeFileSync(LOCAL_FILE, JSON.stringify(stats, null, 2), 'utf8');
-}
-
-async function getIO() {
-  // Check if we're in Netlify environment with Blobs support
-  const isNetlify = process.env.NETLIFY === 'true' || process.env.NETLIFY_DEV === 'true';
-  
-  if (isNetlify) {
-    try {
-      // Try to use Netlify Blobs in production
-      const store = getStore(STORE_NAME);
-      
-      // Test if Blobs is actually working by attempting a read
-      await store.get(KEY, { type: 'json' }).catch(() => null);
-      
-      return {
-        mode: 'blobs',
-        read: async () => {
-          try {
-            return await readStatsFromBlobs(store);
-          } catch (error) {
-            console.error('Blobs read failed, falling back to local:', error);
-            return readStatsFromLocal();
-          }
-        },
-        write: async (stats) => {
-          try {
-            await writeStatsToBlobs(store, stats);
-          } catch (error) {
-            console.error('Blobs write failed, falling back to local:', error);
-            writeStatsToLocal(stats);
-          }
-        },
-      };
-    } catch (error) {
-      console.warn('Netlify Blobs not available, using local fallback:', error.message);
-      // Fall through to local storage
-    }
+    const data = await store.get(KEY, { type: 'json' });
+    return data && typeof data === 'object' ? { ...DEFAULT_STATS, ...data } : DEFAULT_STATS;
+  } catch (error) {
+    console.error('Error reading stats from Blobs:', error);
+    return DEFAULT_STATS;
   }
-  
-  // Local development or Blobs unavailable: use file system
-  return {
-    mode: 'local',
-    read: () => Promise.resolve(readStatsFromLocal()),
-    write: (stats) => Promise.resolve(writeStatsToLocal(stats)),
-  };
+}
+
+async function writeStats(stats) {
+  const store = getStore(STORE_NAME);
+  try {
+    await store.set(KEY, JSON.stringify(stats), { contentType: 'application/json' });
+  } catch (error) {
+    console.error('Error writing stats to Blobs:', error);
+    throw error;
+  }
 }
 
 function parseCookies(header) {
@@ -117,7 +64,6 @@ function isAuthed(event) {
 }
 
 exports.handler = async function (event) {
-  const io = await getIO();
   const origin = event.headers.origin || event.headers.Origin || '*';
   const headers = {
     'Content-Type': 'application/json',
@@ -133,7 +79,7 @@ exports.handler = async function (event) {
 
   try {
     if (event.httpMethod === 'GET') {
-      const stats = await io.read();
+      const stats = await readStats();
       return { statusCode: 200, headers, body: JSON.stringify(stats) };
     }
 
@@ -143,18 +89,18 @@ exports.handler = async function (event) {
       }
       const body = JSON.parse(event.body || '{}');
       const { devicesRepaired } = body;
-      
+
       if (typeof devicesRepaired === 'undefined' || devicesRepaired === null) {
         return { statusCode: 400, headers, body: JSON.stringify({ error: 'devicesRepaired is required' }) };
       }
-      
+
       const count = parseInt(devicesRepaired, 10);
       if (isNaN(count) || count < 0) {
         return { statusCode: 400, headers, body: JSON.stringify({ error: 'devicesRepaired must be a non-negative number' }) };
       }
-      
+
       const stats = { devicesRepaired: count };
-      await io.write(stats);
+      await writeStats(stats);
       return { statusCode: 200, headers, body: JSON.stringify(stats) };
     }
 
