@@ -5,12 +5,19 @@
 // - DELETE: remove testimonial { id }
 
 const { getStore } = require('@netlify/blobs');
+const fs = require('fs');
+const path = require('path');
 
 const STORE_NAME = 'testimonials';
 const KEY = 'data.json';
 
+// Use /tmp for persistent storage in Netlify functions
+const LOCAL_DIR = '/tmp/netlify-blobs';
+const LOCAL_FILE = path.join(LOCAL_DIR, 'testimonials.json');
+
 async function readTestimonials() {
   try {
+    // Try Netlify Blobs first
     const store = getStore({
       name: STORE_NAME,
       siteID: 'bd21e028-ae93-4bbf-9ffb-bcfbbbc0f8d1',
@@ -19,13 +26,23 @@ async function readTestimonials() {
     const data = await store.get(KEY, { type: 'json' });
     return Array.isArray(data) ? data : [];
   } catch (error) {
-    console.error('Error reading testimonials from Blobs:', error);
-    return [];
+    console.error('Blobs read failed, using local fallback:', error.message);
+    // Fallback to local file
+    try {
+      if (!fs.existsSync(LOCAL_FILE)) return [];
+      const raw = fs.readFileSync(LOCAL_FILE, 'utf8');
+      const data = JSON.parse(raw || '[]');
+      return Array.isArray(data) ? data : [];
+    } catch (localError) {
+      console.error('Local file read failed:', localError);
+      return [];
+    }
   }
 }
 
 async function writeTestimonials(testimonials) {
   try {
+    // Try Netlify Blobs first
     const store = getStore({
       name: STORE_NAME,
       siteID: 'bd21e028-ae93-4bbf-9ffb-bcfbbbc0f8d1',
@@ -33,8 +50,15 @@ async function writeTestimonials(testimonials) {
     });
     await store.set(KEY, JSON.stringify(testimonials), { contentType: 'application/json' });
   } catch (error) {
-    console.error('Error writing testimonials to Blobs:', error);
-    throw error;
+    console.error('Blobs write failed, using local fallback:', error.message);
+    // Fallback to local file
+    try {
+      if (!fs.existsSync(LOCAL_DIR)) fs.mkdirSync(LOCAL_DIR, { recursive: true });
+      fs.writeFileSync(LOCAL_FILE, JSON.stringify(testimonials, null, 2), 'utf8');
+    } catch (localError) {
+      console.error('Local file write failed:', localError);
+      throw localError;
+    }
   }
 }
 

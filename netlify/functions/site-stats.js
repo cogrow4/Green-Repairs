@@ -4,6 +4,8 @@
 // - PUT: update stats (admin only) { devicesRepaired }
 
 const { getStore } = require('@netlify/blobs');
+const fs = require('fs');
+const path = require('path');
 
 const STORE_NAME = 'site-stats';
 const KEY = 'data.json';
@@ -13,8 +15,13 @@ const DEFAULT_STATS = {
   devicesRepaired: 50
 };
 
+// Use /tmp for persistent storage in Netlify functions
+const LOCAL_DIR = '/tmp/netlify-blobs';
+const LOCAL_FILE = path.join(LOCAL_DIR, 'site-stats.json');
+
 async function readStats() {
   try {
+    // Try Netlify Blobs first
     const store = getStore({
       name: STORE_NAME,
       siteID: 'bd21e028-ae93-4bbf-9ffb-bcfbbbc0f8d1',
@@ -23,13 +30,23 @@ async function readStats() {
     const data = await store.get(KEY, { type: 'json' });
     return data && typeof data === 'object' ? { ...DEFAULT_STATS, ...data } : DEFAULT_STATS;
   } catch (error) {
-    console.error('Error reading stats from Blobs:', error);
-    return DEFAULT_STATS;
+    console.error('Blobs read failed, using local fallback:', error.message);
+    // Fallback to local file
+    try {
+      if (!fs.existsSync(LOCAL_FILE)) return DEFAULT_STATS;
+      const raw = fs.readFileSync(LOCAL_FILE, 'utf8');
+      const data = JSON.parse(raw || '{}');
+      return { ...DEFAULT_STATS, ...data };
+    } catch (localError) {
+      console.error('Local file read failed:', localError);
+      return DEFAULT_STATS;
+    }
   }
 }
 
 async function writeStats(stats) {
   try {
+    // Try Netlify Blobs first
     const store = getStore({
       name: STORE_NAME,
       siteID: 'bd21e028-ae93-4bbf-9ffb-bcfbbbc0f8d1',
@@ -37,8 +54,15 @@ async function writeStats(stats) {
     });
     await store.set(KEY, JSON.stringify(stats), { contentType: 'application/json' });
   } catch (error) {
-    console.error('Error writing stats to Blobs:', error);
-    throw error;
+    console.error('Blobs write failed, using local fallback:', error.message);
+    // Fallback to local file
+    try {
+      if (!fs.existsSync(LOCAL_DIR)) fs.mkdirSync(LOCAL_DIR, { recursive: true });
+      fs.writeFileSync(LOCAL_FILE, JSON.stringify(stats, null, 2), 'utf8');
+    } catch (localError) {
+      console.error('Local file write failed:', localError);
+      throw localError;
+    }
   }
 }
 
