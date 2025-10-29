@@ -3,20 +3,13 @@
 // - GET: return current stats { devicesRepaired }
 // - PUT: update stats (admin only) { devicesRepaired }
 
-<<<<<<< HEAD
-const { createClient } = require('@supabase/supabase-js');
-
-// Initialize Supabase client
-const supabase = createClient(
-  process.env.PUBLIC_SUPABASE_URL,
-  process.env.PUBLIC_SUPABASE_ANON_KEY
-);
-=======
 const { getStore } = require('@netlify/blobs');
 
 const STORE_NAME = 'site-stats';
 const KEY = 'data.json';
->>>>>>> 2e39a7949b5e5ec34863d04391367b46f8c8c2cd
+
+// Configure Blobs store with site ID and token
+const SITE_ID = 'bd21e028-ae93-4bbf-9ffb-bcfbbbc0f8d1';
 
 const DEFAULT_STATS = {
   devicesRepaired: 50
@@ -24,24 +17,9 @@ const DEFAULT_STATS = {
 
 async function readStats() {
   try {
-<<<<<<< HEAD
-    const { data, error } = await supabase
-      .from('site_stats')
-      .select('devicesRepaired')
-      .limit(1)
-      .single();
-
-    if (error) {
-      console.error('Error reading stats from Supabase:', error);
-      return DEFAULT_STATS;
-    }
-
-    return { devicesRepaired: data?.devicesRepaired ?? DEFAULT_STATS.devicesRepaired };
-=======
-    const store = getStore(STORE_NAME);
+    const store = getStore(STORE_NAME, { site: SITE_ID });
     const data = await store.get(KEY, { type: 'json' });
     return data ? { ...DEFAULT_STATS, ...data } : DEFAULT_STATS;
->>>>>>> 2e39a7949b5e5ec34863d04391367b46f8c8c2cd
   } catch (error) {
     console.error('Error reading stats from Blobs:', error);
     return DEFAULT_STATS;
@@ -50,20 +28,8 @@ async function readStats() {
 
 async function writeStats(stats) {
   try {
-<<<<<<< HEAD
-    const { error } = await supabase
-      .from('site_stats')
-      .update({ devicesRepaired: stats.devicesRepaired })
-      .neq('id', null); // Assuming there's at least one row
-
-    if (error) {
-      console.error('Error writing stats to Supabase:', error);
-      throw error;
-    }
-=======
-    const store = getStore(STORE_NAME);
+    const store = getStore(STORE_NAME, { site: SITE_ID });
     await store.setJSON(KEY, stats);
->>>>>>> 2e39a7949b5e5ec34863d04391367b46f8c8c2cd
   } catch (error) {
     console.error('Error writing stats to Blobs:', error);
     throw error;
