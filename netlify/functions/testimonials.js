@@ -4,11 +4,39 @@
 // - POST: add a testimonial { name, location, message, rating }
 // - DELETE: remove testimonial { id }
 
+<<<<<<< HEAD
 const { createClient } = require('@supabase/supabase-js');
 
 const supabaseUrl = process.env.PUBLIC_SUPABASE_URL;
 const supabaseKey = process.env.PUBLIC_SUPABASE_ANON_KEY;
 const supabase = createClient(supabaseUrl, supabaseKey);
+=======
+const { getStore } = require('@netlify/blobs');
+
+const STORE_NAME = 'testimonials';
+const KEY = 'data.json';
+
+async function readTestimonials() {
+  try {
+    const store = getStore(STORE_NAME);
+    const data = await store.get(KEY, { type: 'json' });
+    return Array.isArray(data) ? data : [];
+  } catch (error) {
+    console.error('Error reading testimonials from Blobs:', error);
+    return [];
+  }
+}
+
+async function writeTestimonials(testimonials) {
+  try {
+    const store = getStore(STORE_NAME);
+    await store.setJSON(KEY, testimonials);
+  } catch (error) {
+    console.error('Error writing testimonials to Blobs:', error);
+    throw error;
+  }
+}
+>>>>>>> 2e39a7949b5e5ec34863d04391367b46f8c8c2cd
 
 function parseCookies(header) {
   const out = {};
@@ -55,12 +83,17 @@ exports.handler = async function (event) {
 
   try {
     if (event.httpMethod === 'GET') {
+<<<<<<< HEAD
       const { data, error } = await supabase
         .from('testimonials')
         .select('*')
         .order('created_at', { ascending: false });
       if (error) throw error;
       return { statusCode: 200, headers, body: JSON.stringify(data) };
+=======
+      const list = await readTestimonials();
+      return { statusCode: 200, headers, body: JSON.stringify(list) };
+>>>>>>> 2e39a7949b5e5ec34863d04391367b46f8c8c2cd
     }
 
     if (event.httpMethod === 'POST') {
@@ -78,6 +111,7 @@ exports.handler = async function (event) {
         message: String(message).slice(0, 2000),
         rating: Math.max(1, Math.min(5, parseInt(rating || 5, 10)))
       };
+<<<<<<< HEAD
       const { data, error } = await supabase
         .from('testimonials')
         .insert(item)
@@ -85,6 +119,12 @@ exports.handler = async function (event) {
         .single();
       if (error) throw error;
       return { statusCode: 201, headers, body: JSON.stringify(data) };
+=======
+      const list = await readTestimonials();
+      list.unshift(item);
+      await writeTestimonials(list);
+      return { statusCode: 201, headers, body: JSON.stringify(item) };
+>>>>>>> 2e39a7949b5e5ec34863d04391367b46f8c8c2cd
     }
 
     if (event.httpMethod === 'DELETE') {
@@ -96,11 +136,17 @@ exports.handler = async function (event) {
       if (!id) {
         return { statusCode: 400, headers, body: JSON.stringify({ error: 'id is required' }) };
       }
+<<<<<<< HEAD
       const { error } = await supabase
         .from('testimonials')
         .delete()
         .eq('id', id);
       if (error) throw error;
+=======
+      const list = await readTestimonials();
+      const next = list.filter(t => t.id !== id);
+      await writeTestimonials(next);
+>>>>>>> 2e39a7949b5e5ec34863d04391367b46f8c8c2cd
       return { statusCode: 200, headers, body: JSON.stringify({ ok: true }) };
     }
 

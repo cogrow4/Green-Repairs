@@ -3,6 +3,7 @@
 // - GET: return current stats { devicesRepaired }
 // - PUT: update stats (admin only) { devicesRepaired }
 
+<<<<<<< HEAD
 const { createClient } = require('@supabase/supabase-js');
 
 // Initialize Supabase client
@@ -10,14 +11,20 @@ const supabase = createClient(
   process.env.PUBLIC_SUPABASE_URL,
   process.env.PUBLIC_SUPABASE_ANON_KEY
 );
+=======
+const { getStore } = require('@netlify/blobs');
 
-// Default stats
+const STORE_NAME = 'site-stats';
+const KEY = 'data.json';
+>>>>>>> 2e39a7949b5e5ec34863d04391367b46f8c8c2cd
+
 const DEFAULT_STATS = {
   devicesRepaired: 50
 };
 
 async function readStats() {
   try {
+<<<<<<< HEAD
     const { data, error } = await supabase
       .from('site_stats')
       .select('devicesRepaired')
@@ -30,14 +37,20 @@ async function readStats() {
     }
 
     return { devicesRepaired: data?.devicesRepaired ?? DEFAULT_STATS.devicesRepaired };
+=======
+    const store = getStore(STORE_NAME);
+    const data = await store.get(KEY, { type: 'json' });
+    return data ? { ...DEFAULT_STATS, ...data } : DEFAULT_STATS;
+>>>>>>> 2e39a7949b5e5ec34863d04391367b46f8c8c2cd
   } catch (error) {
-    console.error('Error reading stats:', error);
+    console.error('Error reading stats from Blobs:', error);
     return DEFAULT_STATS;
   }
 }
 
 async function writeStats(stats) {
   try {
+<<<<<<< HEAD
     const { error } = await supabase
       .from('site_stats')
       .update({ devicesRepaired: stats.devicesRepaired })
@@ -47,8 +60,12 @@ async function writeStats(stats) {
       console.error('Error writing stats to Supabase:', error);
       throw error;
     }
+=======
+    const store = getStore(STORE_NAME);
+    await store.setJSON(KEY, stats);
+>>>>>>> 2e39a7949b5e5ec34863d04391367b46f8c8c2cd
   } catch (error) {
-    console.error('Error writing stats:', error);
+    console.error('Error writing stats to Blobs:', error);
     throw error;
   }
 }
