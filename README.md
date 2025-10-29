@@ -13,7 +13,7 @@
 [![GitHub issues](https://img.shields.io/github/issues/cogrow4/Green-Repairs?style=for-the-badge&logo=github&color=22c55e)](https://github.com/cogrow4/Green-Repairs/issues)
 [![License](https://img.shields.io/badge/License-Custom_NCL-22c55e?style=for-the-badge)](./LICENSE.md)
 
-[![Netlify Status](https://img.shields.io/badge/Deployed_on-Netlify-00C7B7?style=for-the-badge&logo=netlify)](https://app.netlify.com)
+[![Netlify Status](https://api.netlify.com/api/v1/badges/bd21e028-ae93-4bbf-9ffb-bcfbbbc0f8d1/deploy-status)](https://app.netlify.com/projects/golden-dusk-1e4465/deploys)
 [![Made with Tailwind](https://img.shields.io/badge/Made_with-Tailwind_CSS-38bdf8?style=for-the-badge&logo=tailwindcss)](https://tailwindcss.com)
 [![JavaScript](https://img.shields.io/badge/JavaScript-ES6+-f7df1e?style=for-the-badge&logo=javascript&logoColor=black)](https://developer.mozilla.org/en-US/docs/Web/JavaScript)
 
