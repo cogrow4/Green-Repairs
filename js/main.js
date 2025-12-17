@@ -268,12 +268,13 @@ function initializeTestimonials() {
     
     async function loadTestimonials() {
         try {
-            const response = await fetch('/.netlify/functions/testimonials');
-            if (!response.ok) throw new Error('Failed to load testimonials');
+            const response = await fetch('/data/site-data.json');
+            if (!response.ok) throw new Error('Failed to load site data');
             
-            const testimonials = await response.json();
+            const data = await response.json();
+            const testimonials = data.testimonials || [];
             
-            if (testimonials && testimonials.length > 0) {
+            if (testimonials.length > 0) {
                 renderTestimonials(testimonials);
                 if (testimonialsSection) {
                     testimonialsSection.classList.remove('hidden');
@@ -327,11 +328,11 @@ function initializeSiteStats() {
     
     async function loadSiteStats() {
         try {
-            const response = await fetch('/.netlify/functions/site-stats');
-            if (!response.ok) throw new Error('Failed to load site stats');
+            const response = await fetch('/data/site-data.json');
+            if (!response.ok) throw new Error('Failed to load site data');
             
-            const stats = await response.json();
-            const count = stats.devicesRepaired || 50;
+            const data = await response.json();
+            const count = data.devicesRepaired || 50;
             
             // Update hero section
             if (heroDevicesCount) {

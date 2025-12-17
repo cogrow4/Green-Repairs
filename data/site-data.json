@@ -1,0 +1,12 @@
+{
+    "devicesRepaired": 15,
+    "testimonials": [
+        {
+            "id": "1",
+            "name": "Bronwyn Fielder",
+            "location": "Channel, TAS",
+            "message": "My computer is now running much faster and without the problems I had before. Coen was easy to contact and the repair was quick and at a very reasonable rate. Great service",
+            "rating": 5
+        }
+    ]
+}

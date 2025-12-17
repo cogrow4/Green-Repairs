@@ -1,5 +1,6 @@
-const fetch = require('node-fetch');
-require('dotenv').config({ path: '.env' });
+// Netlify Function: send-email via Mailgun
+// Node 18+ has native fetch, no package required
+// Environment variables are provided by Netlify automatically
 
 // Mailgun configuration - using environment variables
 const MAILGUN_API_KEY = process.env.MAILGUN_API_KEY;
@@ -73,7 +74,7 @@ This message was sent from the Green Repairs contact form.`;
 
     // Log the received form data
     console.log('Form data received:', { name, email, device, message });
-    
+
     // Log the Mailgun configuration
     console.log('Using Mailgun domain:', MAILGUN_DOMAIN);
 
@@ -84,7 +85,7 @@ This message was sent from the Green Repairs contact form.`;
     formData.append('subject', subject);
     formData.append('text', emailContent);
     formData.append('h:Reply-To', `${name} <${email}>`);
-    
+
     console.log('Sending email with data:', {
       from: `Mailgun Sandbox <postmaster@${MAILGUN_DOMAIN}>`,
       to: MAILGUN_TO_EMAIL,
@@ -119,9 +120,9 @@ This message was sent from the Green Repairs contact form.`;
     console.error('Error:', error);
     return {
       statusCode: 500,
-      body: JSON.stringify({ 
-        success: false, 
-        error: 'An error occurred while sending your message. Please try again later.' 
+      body: JSON.stringify({
+        success: false,
+        error: 'An error occurred while sending your message. Please try again later.'
       })
     };
   }
